@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Decision Posture</title>
+  <meta name="description" content="Request a talk, workshop, or the 2‑day Decision Posture cohort." />
+  <meta property="og:title" content="Contact — Decision Posture" />
+  <meta property="og:description" content="Request details or schedule a short call." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/logo.svg" />
+  <meta name="theme-color" content="#070b12" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+  <div class="wrap">
+    <header class="site-header" role="banner">
+      <div class="brand">
+        <a href="index.html" aria-label="Decision Posture home">
+          <img src="assets/logo.svg" alt="" width="34" height="34" loading="lazy" />
+        </a>
+        <div>
+          <div class="brand-title">Decision Posture</div>
+          <div class="brand-sub">Applied decision safety under uncertainty</div>
+        </div>
+      </div>
+      <nav class="nav" id="site-nav" aria-label="primary">
+        <a href="decision-posture.html">Decision Posture</a>
+        <a href="talks.html">Talks</a>
+        <a href="adoption.html">Adoption</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </header>
+
+    <main id="main" role="main">
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <h1>Contact</h1>
+            <p class="subtitle">Request a talk, workshop, or the 2‑day cohort. Keep it simple: tell me what decision pressure looks like in your org.</p>
+
+            <div class="card" style="margin-top:16px">
+              <h3>Send a note</h3>
+              <p class="small">I typically respond within 1–2 business days.</p>
+              <form class="contact-form" data-form-id="contact">
+                <div class="form-row">
+                  <div class="form-field">
+                    <label for="contact-name">Name</label>
+                    <input id="contact-name" name="name" type="text" autocomplete="name" required />
+                  </div>
+                  <div class="form-field">
+                    <label for="contact-email">Email</label>
+                    <input id="contact-email" name="email" type="email" autocomplete="email" required />
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label for="contact-subject">Subject</label>
+                  <input id="contact-subject" name="subject" type="text" autocomplete="off" />
+                </div>
+                <div class="form-field">
+                  <label for="contact-message">Message</label>
+                  <textarea id="contact-message" name="message" required></textarea>
+                </div>
+                <div class="form-field form-honeypot" aria-hidden="true">
+                  <label for="contact-company">Company</label>
+                  <input id="contact-company" name="company" type="text" tabindex="-1" autocomplete="off" />
+                </div>
+                <button class="btn btn-primary" type="submit">Send message</button>
+                <p class="small form-status" role="status" aria-live="polite"></p>
+              </form>
+            </div>
+
+            <p class="small" style="margin-top:14px">
+              <span class="badge">Note</span>
+              I keep this practical. If you’re looking for certification, compliance theater, or a framework rollout, this is not a fit.
+            </p>
+          </div>
+
+          <div class="card">
+            <h2>What happens next</h2>
+            <ol class="small" style="padding-left:18px">
+              <li><strong>15 minutes</strong> to understand the decision environment and stakes.</li>
+              <li>Pick a format that matches the audience and urgency.</li>
+              <li>Run the session; produce one reusable artifact (not busywork).</li>
+              <li>Only expand if it pulls.</li>
+            </ol>
+
+            <h3 style="margin-top:18px">Accessibility</h3>
+            <p class="small">This site supports high contrast, keyboard navigation, and reduced motion.</p>
+
+            <h3 style="margin-top:18px">Privacy</h3>
+            <p class="small">No tracking pixels. No analytics by default. If you add analytics later, keep it minimal and disclosed.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer" role="contentinfo">
+        <span><strong>Decision Posture</strong> · Applied decision safety</span>
+        <span>Created by HelixNote, an Echelon Foundry initiative</span>
+      </div>
+    </main>
+  </div>
+  <script defer src="js/contact.js"></script>
+</body>
+</html>

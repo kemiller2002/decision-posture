@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="Decision Posture">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7dd3fc"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  <rect x="20" y="20" width="180" height="180" rx="28" fill="none" stroke="url(#g)" stroke-width="10"/>
+  <path d="M70 150V70h44q22 0 34 12t12 32q0 20-12 32t-34 12H70zm30-26h12q13 0 20-6t7-18q0-12-7-18t-20-6h-12v48z" fill="url(#g)"/>
+</svg>
