@@ -5,6 +5,8 @@ This is a **static** site for the **Clarity Framework**.
 ## Structure
 - `index.html` — Home
 - `framework.html` — Core framework concepts
+- `learn.html` — Exercises and worked examples
+- `how-it-fits.html` — How Clarity complements existing frameworks
 - `assessments.html` — Clarity Assessment / Clarity Audit
 - `glossary.html` — Working definitions
 - `research.html` — Open questions

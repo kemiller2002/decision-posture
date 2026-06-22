@@ -418,6 +418,34 @@ h3{line-height:1.2;}
   background:rgba(255,255,255,0.05);
 }
 
+.table-wrap{
+  overflow-x:auto;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:rgba(255,255,255,0.03);
+  box-shadow:var(--shadow);
+}
+
+.comparison-table{
+  width:100%;
+  min-width:760px;
+  border-collapse:collapse;
+}
+
+.comparison-table th,
+.comparison-table td{
+  padding:12px 14px;
+  border:1px solid var(--line);
+  text-align:left;
+  vertical-align:top;
+  color:var(--muted);
+}
+
+.comparison-table th{
+  background:rgba(255,255,255,0.05);
+  color:var(--text);
+}
+
 .contact-form{
   display:grid;
   gap:12px;
