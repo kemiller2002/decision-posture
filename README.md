@@ -1,13 +1,15 @@
 # decisionposture.com (static site)
 
-This is a **static** marketing site for **Decision Posture**.
+This is a **static** site for the **Clarity Framework**.
 
 ## Structure
 - `index.html` — Home
-- `decision-posture.html` — Flagship page
-- `talks.html` — Talks & Workshops
-- `adoption.html` — Bottom-up adoption path
-- `about.html` — Minimal about
+- `framework.html` — Core framework concepts
+- `assessments.html` — Clarity Assessment / Clarity Audit
+- `glossary.html` — Working definitions
+- `research.html` — Open questions
+- `about.html` — Framework purpose and scope
+- `decision-posture.html`, `decision-map.html`, `decision-records.html`, `guides.html`, `talks.html`, `adoption.html`, `clarity.html` — Legacy redirects
 - `contact.html` — Contact / inquiry
 - `css/site.css` — Site styles (accessible, high-contrast)
 - `js/main.js` — Theme + font-size toggles, mobile menu
