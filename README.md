@@ -8,6 +8,8 @@ This is a **static** site for the **Clarity Framework**.
 - `learn.html` — Exercises and worked examples
 - `how-it-fits.html` — How Clarity complements existing frameworks
 - `assessment-process.html` — Step-by-step Clarity Assessment guide
+- `starter-kit.html` — Downloadable Clarity Quick Assessment
+- `try-clarity.html` — Local guided assessment experience
 - `assessments.html` — Clarity Assessment / Clarity Audit
 - `glossary.html` — Working definitions
 - `research.html` — Open questions

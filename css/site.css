@@ -50,7 +50,7 @@ body::before{
 
 a{color:var(--accent); text-decoration-thickness:2px; text-underline-offset:3px;}
 a:hover{opacity:0.95}
-a:focus-visible, button:focus-visible, input:focus-visible{
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
   outline:3px solid var(--accent);
   outline-offset:3px;
   border-radius:10px;
@@ -463,7 +463,8 @@ h3{line-height:1.2;}
   letter-spacing:0.2px;
 }
 .form-field input,
-.form-field textarea{
+.form-field textarea,
+.form-field select{
   width:100%;
   padding:11px 12px;
   border-radius:12px;
@@ -475,13 +476,15 @@ h3{line-height:1.2;}
   transition:border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
 }
 .form-field input:focus,
-.form-field textarea:focus{
+.form-field textarea:focus,
+.form-field select:focus{
   outline:none;
   border-color:rgba(125,211,252,0.5);
   box-shadow:0 0 0 3px rgba(125,211,252,0.18);
   background:rgba(7,11,18,0.6);
 }
 .form-field textarea{min-height:140px; resize:vertical;}
+.form-copy{margin:4px 0 8px;}
 .form-status{min-height:1.2em;}
 .form-honeypot{
   position:absolute;
@@ -517,6 +520,27 @@ h3{line-height:1.2;}
 
 .list{margin:10px 0 0; padding-left:18px; color:var(--muted);}
 .list li{margin:6px 0;}
+
+.choice-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.choice-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,0.04);
+  color:var(--muted);
+}
+
+.choice-pill input{
+  margin:0;
+}
 
 .two-col{grid-column:span 12;}
 @media (min-width: 900px){

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Try Clarity — Clarity Framework</title>
+  <meta name="description" content="Apply Clarity to a real claim with a lightweight guided assessment that runs entirely in the browser." />
+  <meta property="og:title" content="Try Clarity — Clarity Framework" />
+  <meta property="og:description" content="The best way to understand Clarity is to apply it to a real claim." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/logo.svg" />
+  <meta name="theme-color" content="#070b12" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header" role="banner">
+      <div class="brand">
+        <a href="index.html" aria-label="Clarity Framework home">
+          <img src="assets/logo.svg" alt="" width="34" height="34" loading="lazy" />
+        </a>
+        <div>
+          <div class="brand-title">Clarity Framework</div>
+          <div class="brand-sub">Belief management under uncertainty</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="framework.html">Framework</a>
+        <a href="glossary.html">Glossary</a>
+        <a href="learn.html">Learn</a>
+        <a href="how-it-fits.html">How It Fits</a>
+        <a href="assessment-process.html">Assessments</a>
+        <a href="starter-kit.html">Starter Kit</a>
+        <a href="try-clarity.html" aria-current="page">Try Clarity</a>
+        <a href="research.html">Research</a>
+        <a href="about.html">About</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="eyebrow">Guided practice</div>
+        <h1>Try Clarity</h1>
+        <p class="lede">The best way to understand Clarity is to apply it to a real claim.</p>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <form class="contact-form try-clarity-form" id="try-clarity-form">
+            <div class="form-field">
+              <label for="assessment-type">Step 1</label>
+              <p class="small form-copy">What are you evaluating?</p>
+              <select id="assessment-type" name="assessment_type" class="select-input">
+                <option>Project</option>
+                <option>Product Idea</option>
+                <option>Startup</option>
+                <option>Architecture</option>
+                <option>Methodology</option>
+                <option>Strategy</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="claim">Step 2</label>
+              <p class="small form-copy">What claim are you making?</p>
+              <p class="small form-copy">Examples: Customers want Feature X. This architecture will scale. This strategy will improve growth.</p>
+              <textarea id="claim" name="claim" required></textarea>
+            </div>
+
+            <div class="form-field">
+              <label for="evidence">Step 3</label>
+              <p class="small form-copy">What evidence supports this claim?</p>
+              <textarea id="evidence" name="evidence" required></textarea>
+            </div>
+
+            <div class="form-field">
+              <label for="assumptions">Step 4</label>
+              <p class="small form-copy">What assumptions support this claim?</p>
+              <textarea id="assumptions" name="assumptions" required></textarea>
+            </div>
+
+            <div class="form-field">
+              <label>Step 5</label>
+              <p class="small form-copy">How confident are you?</p>
+              <div class="choice-row" role="radiogroup" aria-label="Confidence">
+                <label class="choice-pill"><input type="radio" name="confidence" value="Low" required /> <span>Low</span></label>
+                <label class="choice-pill"><input type="radio" name="confidence" value="Moderate" /> <span>Moderate</span></label>
+                <label class="choice-pill"><input type="radio" name="confidence" value="High" /> <span>High</span></label>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="mind-change">Step 6</label>
+              <p class="small form-copy">What would change your mind?</p>
+              <textarea id="mind-change" name="mind_change" required></textarea>
+            </div>
+
+            <div class="cta-row">
+              <button class="btn btn-primary" type="submit">Generate Clarity Summary</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="section" id="clarity-summary" hidden>
+        <div class="content">
+          <h2>Clarity Summary</h2>
+          <div class="cards">
+            <div class="card"><h3>Claim</h3><p id="summary-claim"></p></div>
+            <div class="card"><h3>Evidence</h3><p id="summary-evidence"></p></div>
+            <div class="card"><h3>Assumptions</h3><p id="summary-assumptions"></p></div>
+            <div class="card"><h3>Confidence</h3><p id="summary-confidence"></p></div>
+            <div class="card"><h3>Reassessment Trigger</h3><p id="summary-trigger"></p></div>
+          </div>
+
+          <div class="card">
+            <h3>Reflection Questions</h3>
+            <ul class="list">
+              <li>Does confidence exceed evidence?</li>
+              <li>Are assumptions being treated as facts?</li>
+              <li>Is the claim in Discovery, Commitment, or Reassessment?</li>
+              <li>What evidence would reduce uncertainty?</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer" role="contentinfo">
+        <span><strong>Clarity Framework</strong> · Try Clarity</span>
+        <span>Local guided assessment with no backend required</span>
+      </div>
+    </main>
+  </div>
+  <script defer src="js/try-clarity.js"></script>
+</body>
+</html>
