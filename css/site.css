@@ -297,6 +297,10 @@ h3{line-height:1.2;}
   color:var(--text);
 }
 
+.exercise-block + .exercise-block{
+  margin-top:18px;
+}
+
 .guide-list{
   display:grid;
   gap:12px;
