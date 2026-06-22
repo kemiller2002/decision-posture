@@ -455,14 +455,15 @@ h3{line-height:1.2;}
   display:grid;
   gap:12px;
 }
-.form-field label{
+.form-field label,
+.form-field legend{
   display:block;
   font-size:0.9rem;
   color:var(--muted);
   margin-bottom:6px;
   letter-spacing:0.2px;
 }
-.form-field input,
+.form-field input:not([type="radio"]):not([type="checkbox"]),
 .form-field textarea,
 .form-field select{
   width:100%;
@@ -475,7 +476,7 @@ h3{line-height:1.2;}
   box-shadow:inset 0 0 0 1px rgba(255,255,255,0.03);
   transition:border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
 }
-.form-field input:focus,
+.form-field input:not([type="radio"]):not([type="checkbox"]):focus,
 .form-field textarea:focus,
 .form-field select:focus{
   outline:none;
@@ -486,6 +487,12 @@ h3{line-height:1.2;}
 .form-field textarea{min-height:140px; resize:vertical;}
 .form-copy{margin:4px 0 8px;}
 .form-status{min-height:1.2em;}
+.choice-fieldset{
+  margin:0;
+  padding:0;
+  border:0;
+  min-inline-size:0;
+}
 .form-honeypot{
   position:absolute;
   left:-9999px;
@@ -528,18 +535,75 @@ h3{line-height:1.2;}
 }
 
 .choice-pill{
+  position:relative;
   display:inline-flex;
   align-items:center;
+  justify-content:center;
   gap:8px;
   padding:10px 12px;
   border:1px solid var(--line);
   border-radius:999px;
   background:rgba(255,255,255,0.04);
   color:var(--muted);
+  cursor:pointer;
+  transition:border-color 160ms ease, background 160ms ease, color 160ms ease, box-shadow 160ms ease;
 }
 
-.choice-pill input{
+.choice-pill input[type="radio"]{
+  position:absolute;
+  opacity:0;
+  inset:0;
   margin:0;
+  padding:0;
+  cursor:pointer;
+}
+
+.choice-pill span{
+  line-height:1;
+  text-align:center;
+}
+
+.choice-pill:hover{
+  border-color:rgba(125,211,252,0.35);
+  color:var(--text);
+}
+
+.choice-pill.is-selected{
+  border-color:rgba(125,211,252,0.5);
+  background:rgba(125,211,252,0.16);
+  color:var(--text);
+  box-shadow:0 0 0 3px rgba(125,211,252,0.14);
+}
+
+.choice-pill:focus-within{
+  outline:3px solid var(--accent);
+  outline-offset:3px;
+}
+
+.summary-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:12px;
+  margin-bottom:16px;
+}
+
+.summary-status{
+  min-width:4.5rem;
+  color:var(--muted);
+}
+
+.markdown-output{
+  margin:0;
+  white-space:pre-wrap;
+  word-break:break-word;
+  overflow:auto;
+  padding:16px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--line);
+  background:rgba(255,255,255,0.04);
+  color:var(--text);
+  font:0.95rem/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
 
 .two-col{grid-column:span 12;}

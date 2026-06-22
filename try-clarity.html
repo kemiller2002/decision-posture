@@ -44,6 +44,7 @@
         <div class="eyebrow">Guided practice</div>
         <h1>Try Clarity</h1>
         <p class="lede">The best way to understand Clarity is to apply it to a real claim.</p>
+        <p class="lede">Clarity is a framework for making beliefs, assumptions, evidence, confidence, ownership, and reassessment explicit so people can adapt when reality changes.</p>
       </section>
 
       <section class="section">
@@ -70,36 +71,59 @@
               <textarea id="claim" name="claim" required></textarea>
             </div>
 
+            <fieldset class="form-field choice-fieldset">
+              <legend>Step 3</legend>
+              <p class="small form-copy">What posture best fits this claim?</p>
+              <div class="choice-row" role="radiogroup" aria-label="Posture">
+                <label class="choice-pill" for="posture-discovery"><input id="posture-discovery" type="radio" name="posture" value="Discovery" required /> <span>Discovery</span></label>
+                <label class="choice-pill" for="posture-commitment"><input id="posture-commitment" type="radio" name="posture" value="Commitment" /> <span>Commitment</span></label>
+                <label class="choice-pill" for="posture-reassessment"><input id="posture-reassessment" type="radio" name="posture" value="Reassessment" /> <span>Reassessment</span></label>
+              </div>
+            </fieldset>
+
             <div class="form-field">
-              <label for="evidence">Step 3</label>
+              <label for="evidence">Step 4</label>
               <p class="small form-copy">What evidence supports this claim?</p>
               <textarea id="evidence" name="evidence" required></textarea>
             </div>
 
             <div class="form-field">
-              <label for="assumptions">Step 4</label>
+              <label for="assumptions">Step 5</label>
               <p class="small form-copy">What assumptions support this claim?</p>
               <textarea id="assumptions" name="assumptions" required></textarea>
             </div>
 
-            <div class="form-field">
-              <label>Step 5</label>
+            <fieldset class="form-field choice-fieldset">
+              <legend>Step 6</legend>
               <p class="small form-copy">How confident are you?</p>
               <div class="choice-row" role="radiogroup" aria-label="Confidence">
-                <label class="choice-pill"><input type="radio" name="confidence" value="Low" required /> <span>Low</span></label>
-                <label class="choice-pill"><input type="radio" name="confidence" value="Moderate" /> <span>Moderate</span></label>
-                <label class="choice-pill"><input type="radio" name="confidence" value="High" /> <span>High</span></label>
+                <label class="choice-pill" for="confidence-low"><input id="confidence-low" type="radio" name="confidence" value="Low" required /> <span>Low</span></label>
+                <label class="choice-pill" for="confidence-moderate"><input id="confidence-moderate" type="radio" name="confidence" value="Moderate" /> <span>Moderate</span></label>
+                <label class="choice-pill" for="confidence-high"><input id="confidence-high" type="radio" name="confidence" value="High" /> <span>High</span></label>
               </div>
-            </div>
+            </fieldset>
 
             <div class="form-field">
-              <label for="mind-change">Step 6</label>
+              <label for="mind-change">Step 7</label>
               <p class="small form-copy">What would change your mind?</p>
               <textarea id="mind-change" name="mind_change" required></textarea>
             </div>
 
+            <div class="form-field">
+              <label for="recommended-action">Step 8</label>
+              <p class="small form-copy">What is the next reasonable action?</p>
+              <select id="recommended-action" name="recommended_action" class="select-input" required>
+                <option value="">Select an action</option>
+                <option>Proceed</option>
+                <option>Gather evidence</option>
+                <option>Reduce scope</option>
+                <option>Reassess</option>
+                <option>Adapt</option>
+              </select>
+            </div>
+
             <div class="cta-row">
-              <button class="btn btn-primary" type="submit">Generate Clarity Summary</button>
+              <button class="btn btn-primary" type="submit">Generate Clarity Quick Assessment</button>
             </div>
           </form>
         </div>
@@ -107,13 +131,15 @@
 
       <section class="section" id="clarity-summary" hidden>
         <div class="content">
-          <h2>Clarity Summary</h2>
+          <h2>Clarity Quick Assessment</h2>
           <div class="cards">
             <div class="card"><h3>Claim</h3><p id="summary-claim"></p></div>
+            <div class="card"><h3>Posture</h3><p id="summary-posture"></p></div>
             <div class="card"><h3>Evidence</h3><p id="summary-evidence"></p></div>
             <div class="card"><h3>Assumptions</h3><p id="summary-assumptions"></p></div>
             <div class="card"><h3>Confidence</h3><p id="summary-confidence"></p></div>
             <div class="card"><h3>Reassessment Trigger</h3><p id="summary-trigger"></p></div>
+            <div class="card"><h3>Recommended Next Action</h3><p id="summary-action"></p></div>
           </div>
 
           <div class="card">
@@ -121,9 +147,19 @@
             <ul class="list">
               <li>Does confidence exceed evidence?</li>
               <li>Are assumptions being treated as facts?</li>
-              <li>Is the claim in Discovery, Commitment, or Reassessment?</li>
               <li>What evidence would reduce uncertainty?</li>
+              <li>Who owns the consequences?</li>
+              <li>What is the next reasonable action?</li>
             </ul>
+          </div>
+
+          <div class="card">
+            <div class="summary-actions">
+              <button class="btn btn-primary" type="button" id="copy-markdown">Copy Markdown</button>
+              <button class="btn" type="button" id="download-markdown">Download Markdown</button>
+              <span class="summary-status" id="copy-status" aria-live="polite"></span>
+            </div>
+            <pre class="markdown-output" id="summary-markdown"></pre>
           </div>
         </div>
       </section>
