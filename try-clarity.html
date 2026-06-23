@@ -105,14 +105,34 @@
 
             <div class="form-field">
               <label for="mind-change">Step 7</label>
-              <p class="small form-copy">What would change your mind?</p>
-              <textarea id="mind-change" name="mind_change" required></textarea>
+              <p class="small form-copy">What condition would require immediate action?</p>
+              <textarea id="mind-change" name="action_trigger" required></textarea>
             </div>
 
             <div class="form-field">
               <label for="recommended-action">Step 8</label>
-              <p class="small form-copy">What is the next reasonable action?</p>
+              <p class="small form-copy">What should happen immediately if that trigger occurs?</p>
               <select id="recommended-action" name="recommended_action" class="select-input" required>
+                <option value="">Select an immediate action</option>
+                <option>Roll back</option>
+                <option>Notify owner</option>
+                <option>Escalate</option>
+                <option>Pause work</option>
+                <option>Contain impact</option>
+                <option>Other immediate action</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="reassessment-trigger">Step 9</label>
+              <p class="small form-copy">What condition would require reassessment?</p>
+              <textarea id="reassessment-trigger" name="reassessment_trigger" required></textarea>
+            </div>
+
+            <div class="form-field">
+              <label for="next-action">Step 10</label>
+              <p class="small form-copy">What is the next reasonable action?</p>
+              <select id="next-action" name="next_action" class="select-input" required>
                 <option value="">Select an action</option>
                 <option>Proceed</option>
                 <option>Gather evidence</option>
@@ -138,6 +158,8 @@
             <div class="card"><h3>Evidence</h3><p id="summary-evidence"></p></div>
             <div class="card"><h3>Assumptions</h3><p id="summary-assumptions"></p></div>
             <div class="card"><h3>Confidence</h3><p id="summary-confidence"></p></div>
+            <div class="card"><h3>Action Trigger</h3><p id="summary-action-trigger"></p></div>
+            <div class="card"><h3>Immediate Action</h3><p id="summary-immediate-action"></p></div>
             <div class="card"><h3>Reassessment Trigger</h3><p id="summary-trigger"></p></div>
             <div class="card"><h3>Recommended Next Action</h3><p id="summary-action"></p></div>
           </div>
@@ -147,6 +169,7 @@
             <ul class="list">
               <li>Does confidence exceed evidence?</li>
               <li>Are assumptions being treated as facts?</li>
+              <li>What would require immediate action before deeper reassessment?</li>
               <li>What evidence would reduce uncertainty?</li>
               <li>Who owns the consequences?</li>
               <li>What is the next reasonable action?</li>

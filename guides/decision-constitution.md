@@ -257,6 +257,13 @@ Conditions that force commitment, reconsideration, or reversal.
 
 Triggers also define signals that indicate when a decision may be failing.
 
+In Clarity terms, triggers are most useful when separated into two types:
+
+- **Action Triggers** cause an immediate predefined response.
+- **Reassessment Triggers** force a claim, assumption, or commitment back into review.
+
+Some situations need action before deeper reflection. Both trigger types support adaptation.
+
 ---
 
 ### Boundaries
@@ -267,17 +274,22 @@ The limits of authority within which the decision owner can act without escalati
 
 # Decision Triggers
 
-A **Decision Trigger** is a predefined condition that forces a decision to occur.
+A **Decision Trigger** is a predefined condition that prevents people from continuing blindly when reality changes.
 
 Triggers prevent decisions from drifting indefinitely.
 
-Common trigger types include:
+Two especially useful trigger types are:
 
-- Evidence triggers
-- Time triggers
-- Cost triggers
-- Risk triggers
-- Constraint triggers
+- **Action Triggers**: conditions that cause an immediate response.
+- **Reassessment Triggers**: conditions that require the underlying claim or commitment to be reviewed.
+
+Examples:
+
+- **Reassessment Trigger**: Customer adoption remains below 10% after 30 days.
+- **Response**: Reassess the claim that customers want the feature.
+
+- **Action Trigger**: 20 production errors occur within 10 minutes after deployment.
+- **Response**: Roll back the deployment, notify the on-call engineer, and begin incident review.
 
 Triggers must be defined **before experimentation begins**.
 

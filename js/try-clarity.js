@@ -10,6 +10,8 @@
     evidence: document.getElementById("summary-evidence"),
     assumptions: document.getElementById("summary-assumptions"),
     confidence: document.getElementById("summary-confidence"),
+    actionTrigger: document.getElementById("summary-action-trigger"),
+    immediateAction: document.getElementById("summary-immediate-action"),
     trigger: document.getElementById("summary-trigger"),
     action: document.getElementById("summary-action"),
     markdown: document.getElementById("summary-markdown"),
@@ -67,12 +69,19 @@
       "## Confidence",
       values.confidence,
       "",
+      "## Action Trigger",
+      values.actionTrigger,
+      "",
+      "## Immediate Action",
+      values.immediateAction,
+      "",
       "## Reassessment Trigger",
       values.trigger,
       "",
       "## Reflection Questions",
       "- Does confidence exceed evidence?",
       "- Are assumptions being treated as facts?",
+      "- What would require immediate action before deeper reassessment?",
       "- What evidence would reduce uncertainty?",
       "- Who owns the consequences?",
       "- What is the next reasonable action?",
@@ -144,8 +153,10 @@
       evidence: readValue(formData, "evidence"),
       assumptions: readValue(formData, "assumptions"),
       confidence: readValue(formData, "confidence"),
-      trigger: readValue(formData, "mind_change"),
-      action: readValue(formData, "recommended_action"),
+      actionTrigger: readValue(formData, "action_trigger"),
+      immediateAction: readValue(formData, "recommended_action"),
+      trigger: readValue(formData, "reassessment_trigger"),
+      action: readValue(formData, "next_action"),
     };
 
     fields.claim.textContent = values.claim;
@@ -153,6 +164,8 @@
     fields.evidence.textContent = values.evidence;
     fields.assumptions.textContent = values.assumptions;
     fields.confidence.textContent = values.confidence;
+    fields.actionTrigger.textContent = values.actionTrigger;
+    fields.immediateAction.textContent = values.immediateAction;
     fields.trigger.textContent = values.trigger;
     fields.action.textContent = values.action;
 

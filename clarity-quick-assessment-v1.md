@@ -18,8 +18,14 @@ Low / Moderate / High
 ## Owner
 Who owns this claim and its consequences?
 
+## Action Trigger
+What condition requires immediate action?
+
+## Immediate Action
+What should happen if the action trigger occurs?
+
 ## Reassessment Trigger
-What would change our minds?
+What condition requires reviewing the claim?
 
 ## Recommended Action
 Proceed / gather evidence / reduce scope / reassess / adapt

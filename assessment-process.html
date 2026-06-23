@@ -79,8 +79,9 @@
               <p class="small"><strong>Question:</strong> Does confidence exceed evidence?</p>
             </div>
             <div class="card">
-              <h3>Step 6 — Define Reassessment Triggers</h3>
-              <p class="small"><strong>Question:</strong> What would change our minds?</p>
+              <h3>Step 6 — Define Triggers</h3>
+              <p class="small"><strong>Question:</strong> What would require immediate action?</p>
+              <p class="small"><strong>Question:</strong> What would require reassessment?</p>
             </div>
             <div class="card">
               <h3>Step 7 — Recommend Action</h3>
@@ -99,6 +100,7 @@
             <div class="card"><p class="small">Assumption list</p></div>
             <div class="card"><p class="small">Confidence debt findings</p></div>
             <div class="card"><p class="small">Ownership gaps</p></div>
+            <div class="card"><p class="small">Action triggers and immediate actions</p></div>
             <div class="card"><p class="small">Reassessment triggers</p></div>
             <div class="card"><p class="small">Recommended next actions</p></div>
           </div>
@@ -115,8 +117,38 @@
             <p><strong>Assumptions:</strong></p>
             <p><strong>Confidence:</strong></p>
             <p><strong>Owner:</strong></p>
-            <p><strong>Trigger:</strong></p>
+            <p><strong>Action Trigger:</strong></p>
+            <p><strong>Immediate Action:</strong></p>
+            <p><strong>Reassessment Trigger:</strong></p>
             <p><strong>Recommended Action:</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="content">
+          <h2>Trigger Types in Practice</h2>
+          <div class="cards">
+            <div class="card">
+              <h3>Reassessment Trigger</h3>
+              <p class="small"><strong>Example:</strong> Customer adoption remains below 10% after 30 days.</p>
+              <p class="small"><strong>Response:</strong> Reassess the claim that customers want the feature.</p>
+            </div>
+            <div class="card">
+              <h3>Action Trigger</h3>
+              <p class="small"><strong>Example:</strong> 20 production errors occur within 10 minutes after deployment.</p>
+              <p class="small"><strong>Response:</strong> Roll back the deployment, notify the on-call engineer, and begin incident review.</p>
+            </div>
+            <div class="card">
+              <h3>Deployment Example</h3>
+              <p class="small"><strong>Claim:</strong> This release is production-ready.</p>
+              <p class="small"><strong>Evidence:</strong> Automated tests passed, QA completed validation, and no critical defects remain open.</p>
+              <p class="small"><strong>Confidence:</strong> Moderate to High.</p>
+              <p class="small"><strong>Action Trigger:</strong> 20 production errors within 10 minutes after deployment.</p>
+              <p class="small"><strong>Immediate Action:</strong> Roll back the deployment and notify the on-call engineer.</p>
+              <p class="small"><strong>Reassessment Trigger:</strong> Root cause analysis identifies a release-related defect or a gap in test coverage.</p>
+              <p class="small"><strong>Reassessment:</strong> Review the claim that the release process was sufficient.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -143,7 +175,7 @@
             <p>Most reviews ask:</p>
             <p><strong>What should we do?</strong></p>
             <p>Clarity asks:</p>
-            <p><strong>What do we believe, why do we believe it, and what would change our minds?</strong></p>
+            <p><strong>What do we believe, why do we believe it, what would require immediate action, and what would change our minds?</strong></p>
           </div>
         </div>
       </section>
