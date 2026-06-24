@@ -53,7 +53,7 @@
             <div class="form-field">
               <label for="assessment-type">Step 1</label>
               <p class="small form-copy">What are you evaluating?</p>
-              <select id="assessment-type" name="assessment_type" class="select-input">
+              <select id="assessment-type" name="assessment_type" class="select-input" aria-describedby="assessment-type-guidance">
                 <option>Project</option>
                 <option>Product Idea</option>
                 <option>Startup</option>
@@ -62,6 +62,11 @@
                 <option>Strategy</option>
                 <option>Other</option>
               </select>
+              <div class="guidance-panel" id="assessment-type-guidance" aria-live="polite">
+                <p class="guidance-label">Selection guidance</p>
+                <p class="guidance-title" id="assessment-type-guidance-title"></p>
+                <p class="guidance-body" id="assessment-type-guidance-body"></p>
+              </div>
             </div>
 
             <div class="form-field">
@@ -78,6 +83,12 @@
                 <label class="choice-pill" for="posture-discovery"><input id="posture-discovery" type="radio" name="posture" value="Discovery" required /> <span>Discovery</span></label>
                 <label class="choice-pill" for="posture-commitment"><input id="posture-commitment" type="radio" name="posture" value="Commitment" /> <span>Commitment</span></label>
                 <label class="choice-pill" for="posture-reassessment"><input id="posture-reassessment" type="radio" name="posture" value="Reassessment" /> <span>Reassessment</span></label>
+              </div>
+              <div class="guidance-panel" id="posture-guidance" aria-live="polite">
+                <p class="guidance-label">Selected posture</p>
+                <p class="guidance-title" id="posture-guidance-title"></p>
+                <p class="guidance-body" id="posture-guidance-body"></p>
+                <p class="guidance-prompt" id="posture-guidance-prompt"></p>
               </div>
             </fieldset>
 
@@ -100,6 +111,17 @@
                 <label class="choice-pill" for="confidence-low"><input id="confidence-low" type="radio" name="confidence" value="Low" required /> <span>Low</span></label>
                 <label class="choice-pill" for="confidence-moderate"><input id="confidence-moderate" type="radio" name="confidence" value="Moderate" /> <span>Moderate</span></label>
                 <label class="choice-pill" for="confidence-high"><input id="confidence-high" type="radio" name="confidence" value="High" /> <span>High</span></label>
+              </div>
+              <div class="guidance-panel" id="confidence-guidance" aria-live="polite">
+                <p class="guidance-label">Selected confidence</p>
+                <p class="guidance-title" id="confidence-guidance-title"></p>
+                <p class="guidance-body" id="confidence-guidance-body"></p>
+                <p class="guidance-prompt" id="confidence-guidance-prompt"></p>
+              </div>
+              <div class="callout correctability-note">
+                <strong>Correctability:</strong> Correctability means how easily the action can be reversed, modified, or recovered from if the claim is wrong.
+                Higher correctability usually allows faster action with less evidence.
+                Lower correctability usually requires stronger evidence before commitment.
               </div>
             </fieldset>
 
@@ -132,7 +154,7 @@
             <div class="form-field">
               <label for="next-action">Step 10</label>
               <p class="small form-copy">What is the next reasonable action?</p>
-              <select id="next-action" name="next_action" class="select-input" required>
+              <select id="next-action" name="next_action" class="select-input" required aria-describedby="next-action-guidance">
                 <option value="">Select an action</option>
                 <option>Proceed</option>
                 <option>Gather evidence</option>
@@ -140,48 +162,95 @@
                 <option>Reassess</option>
                 <option>Adapt</option>
               </select>
+              <div class="guidance-panel" id="next-action-guidance" aria-live="polite">
+                <p class="guidance-label">Selected action</p>
+                <p class="guidance-title" id="next-action-guidance-title"></p>
+                <p class="guidance-body" id="next-action-guidance-body"></p>
+              </div>
             </div>
 
             <div class="cta-row">
-              <button class="btn btn-primary" type="submit">Generate Clarity Quick Assessment</button>
+              <button class="btn btn-primary" type="submit">Generate Clarity Assessment Report</button>
             </div>
           </form>
         </div>
       </section>
 
-      <section class="section" id="clarity-summary" hidden>
+      <section class="section" id="clarity-summary" hidden aria-live="polite">
         <div class="content">
-          <h2>Clarity Quick Assessment</h2>
-          <div class="cards">
-            <div class="card"><h3>Claim</h3><p id="summary-claim"></p></div>
-            <div class="card"><h3>Posture</h3><p id="summary-posture"></p></div>
-            <div class="card"><h3>Evidence</h3><p id="summary-evidence"></p></div>
-            <div class="card"><h3>Assumptions</h3><p id="summary-assumptions"></p></div>
-            <div class="card"><h3>Confidence</h3><p id="summary-confidence"></p></div>
-            <div class="card"><h3>Action Trigger</h3><p id="summary-action-trigger"></p></div>
-            <div class="card"><h3>Immediate Action</h3><p id="summary-immediate-action"></p></div>
-            <div class="card"><h3>Reassessment Trigger</h3><p id="summary-trigger"></p></div>
-            <div class="card"><h3>Recommended Next Action</h3><p id="summary-action"></p></div>
-          </div>
-
-          <div class="card">
-            <h3>Reflection Questions</h3>
-            <ul class="list">
-              <li>Does confidence exceed evidence?</li>
-              <li>Are assumptions being treated as facts?</li>
-              <li>What would require immediate action before deeper reassessment?</li>
-              <li>What evidence would reduce uncertainty?</li>
-              <li>Who owns the consequences?</li>
-              <li>What is the next reasonable action?</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <div class="summary-actions">
-              <button class="btn btn-primary" type="button" id="copy-markdown">Copy Markdown</button>
-              <button class="btn" type="button" id="download-markdown">Download Markdown</button>
-              <span class="summary-status" id="copy-status" aria-live="polite"></span>
+          <article class="report-shell" id="clarity-report">
+            <div class="report-header">
+              <div>
+                <p class="report-kicker">Completed assessment</p>
+                <h2>Clarity Assessment Report</h2>
+                <p class="report-copy">A plainspoken assessment summary designed to be shared, printed, or saved.</p>
+              </div>
+              <div class="summary-actions" aria-label="Report actions">
+                <button class="btn btn-primary" type="button" id="print-report">Print / Save PDF</button>
+                <button class="btn" type="button" id="download-report">Download HTML</button>
+                <button class="btn" type="button" id="copy-markdown">Copy Markdown</button>
+                <span class="summary-status" id="copy-status" aria-live="polite"></span>
+              </div>
             </div>
+
+            <div class="report-grid">
+              <section class="report-card report-card-wide">
+                <h3>Assessment Type</h3>
+                <p id="summary-assessment-type"></p>
+              </section>
+              <section class="report-card report-card-wide">
+                <h3>Claim</h3>
+                <p id="summary-claim"></p>
+              </section>
+              <section class="report-card">
+                <h3>Posture</h3>
+                <p id="summary-posture"></p>
+              </section>
+              <section class="report-card">
+                <h3>Confidence</h3>
+                <p id="summary-confidence"></p>
+              </section>
+              <section class="report-card report-card-wide">
+                <h3>Evidence</h3>
+                <p id="summary-evidence"></p>
+              </section>
+              <section class="report-card report-card-wide">
+                <h3>Assumptions</h3>
+                <p id="summary-assumptions"></p>
+              </section>
+              <section class="report-card">
+                <h3>Action Trigger</h3>
+                <p id="summary-action-trigger"></p>
+              </section>
+              <section class="report-card">
+                <h3>Immediate Action</h3>
+                <p id="summary-immediate-action"></p>
+              </section>
+              <section class="report-card report-card-wide">
+                <h3>Reassessment Trigger</h3>
+                <p id="summary-trigger"></p>
+              </section>
+              <section class="report-card report-card-wide">
+                <h3>Recommended Action</h3>
+                <p id="summary-action"></p>
+              </section>
+              <section class="report-card report-card-wide">
+                <h3>Reflection Questions</h3>
+                <ul class="list report-list">
+                  <li>Does confidence exceed evidence?</li>
+                  <li>Are assumptions being treated as facts?</li>
+                  <li>What would require immediate action before deeper reassessment?</li>
+                  <li>What evidence would reduce uncertainty?</li>
+                  <li>Who owns the consequences?</li>
+                  <li>What is the next reasonable action?</li>
+                </ul>
+              </section>
+            </div>
+          </article>
+
+          <div class="card markdown-export">
+            <h3>Markdown Export</h3>
+            <p class="small">Use this if you want to paste the assessment into notes, GitHub, email, or documentation.</p>
             <pre class="markdown-output" id="summary-markdown"></pre>
           </div>
         </div>

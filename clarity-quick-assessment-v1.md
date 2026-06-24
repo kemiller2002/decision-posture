@@ -18,14 +18,26 @@ Low / Moderate / High
 ## Owner
 Who owns this claim and its consequences?
 
+## Monitoring Signal
+What will we watch?
+
+## Threshold
+What level or event requires attention?
+
+## Trigger Claim
+Why does this threshold matter?
+
 ## Action Trigger
 What condition requires immediate action?
 
-## Immediate Action
-What should happen if the action trigger occurs?
+## Response
+What happens when the trigger fires?
 
 ## Reassessment Trigger
 What condition requires reviewing the claim?
+
+## Trigger Reassessment
+What would tell us the trigger is too sensitive, too weak, or no longer useful?
 
 ## Recommended Action
 Proceed / gather evidence / reduce scope / reassess / adapt

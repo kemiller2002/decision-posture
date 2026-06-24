@@ -52,6 +52,9 @@
         <p class="lede">
           Clarity is a framework for making beliefs, assumptions, evidence, confidence, ownership, and reassessment explicit so people can adapt when reality changes.
         </p>
+        <p class="lede">
+          Triggers, thresholds, and responses are also claims. They should be inspected and revised when reality shows they no longer represent meaningful change or risk.
+        </p>
       </section>
 
       <section class="section">
@@ -80,8 +83,10 @@
             </div>
             <div class="card">
               <h3>Step 6 — Define Triggers</h3>
-              <p class="small"><strong>Question:</strong> What would require immediate action?</p>
-              <p class="small"><strong>Question:</strong> What would require reassessment?</p>
+              <p class="small"><strong>Question:</strong> What signal are we monitoring?</p>
+              <p class="small"><strong>Question:</strong> What threshold matters, and why?</p>
+              <p class="small"><strong>Question:</strong> What claim does this trigger represent?</p>
+              <p class="small"><strong>Question:</strong> What would require immediate action or reassessment?</p>
             </div>
             <div class="card">
               <h3>Step 7 — Recommend Action</h3>
@@ -100,8 +105,10 @@
             <div class="card"><p class="small">Assumption list</p></div>
             <div class="card"><p class="small">Confidence debt findings</p></div>
             <div class="card"><p class="small">Ownership gaps</p></div>
-            <div class="card"><p class="small">Action triggers and immediate actions</p></div>
-            <div class="card"><p class="small">Reassessment triggers</p></div>
+            <div class="card"><p class="small">Monitoring signals and thresholds</p></div>
+            <div class="card"><p class="small">Trigger claims and owners</p></div>
+            <div class="card"><p class="small">Action triggers and responses</p></div>
+            <div class="card"><p class="small">Reassessment triggers and trigger-review conditions</p></div>
             <div class="card"><p class="small">Recommended next actions</p></div>
           </div>
         </div>
@@ -117,9 +124,13 @@
             <p><strong>Assumptions:</strong></p>
             <p><strong>Confidence:</strong></p>
             <p><strong>Owner:</strong></p>
+            <p><strong>Monitoring Signal:</strong></p>
+            <p><strong>Threshold:</strong></p>
+            <p><strong>Trigger Claim:</strong></p>
             <p><strong>Action Trigger:</strong></p>
-            <p><strong>Immediate Action:</strong></p>
+            <p><strong>Response:</strong></p>
             <p><strong>Reassessment Trigger:</strong></p>
+            <p><strong>Trigger Reassessment:</strong></p>
             <p><strong>Recommended Action:</strong></p>
           </div>
         </div>
@@ -127,7 +138,11 @@
 
       <section class="section">
         <div class="content">
-          <h2>Trigger Types in Practice</h2>
+          <h2>Trigger Model in Practice</h2>
+          <div class="reference">
+            <p><strong>Claim → Monitoring Signal → Threshold → Trigger → Response → Learning → Reassessment</strong></p>
+            <p>A trigger is not a permanent truth. It is a claim about what a signal means and what should happen when that signal crosses a threshold.</p>
+          </div>
           <div class="cards">
             <div class="card">
               <h3>Reassessment Trigger</h3>
@@ -144,10 +159,19 @@
               <p class="small"><strong>Claim:</strong> This release is production-ready.</p>
               <p class="small"><strong>Evidence:</strong> Automated tests passed, QA completed validation, and no critical defects remain open.</p>
               <p class="small"><strong>Confidence:</strong> Moderate to High.</p>
-              <p class="small"><strong>Action Trigger:</strong> 20 production errors within 10 minutes after deployment.</p>
-              <p class="small"><strong>Immediate Action:</strong> Roll back the deployment and notify the on-call engineer.</p>
+              <p class="small"><strong>Monitoring Signal:</strong> Production error count after deployment.</p>
+              <p class="small"><strong>Threshold:</strong> 20 production errors within 10 minutes.</p>
+              <p class="small"><strong>Trigger Claim:</strong> 20 production errors within 10 minutes indicates unacceptable deployment health.</p>
+              <p class="small"><strong>Action Trigger:</strong> Threshold crossing after deployment.</p>
+              <p class="small"><strong>Response:</strong> Roll back the deployment and notify the on-call engineer.</p>
               <p class="small"><strong>Reassessment Trigger:</strong> Root cause analysis identifies a release-related defect or a gap in test coverage.</p>
               <p class="small"><strong>Reassessment:</strong> Review the claim that the release process was sufficient.</p>
+            </div>
+            <div class="card">
+              <h3>Trigger Reassessment Example</h3>
+              <p class="small"><strong>Scenario:</strong> Several healthy deployments produce 10 to 20 transient errors with no customer impact.</p>
+              <p class="small"><strong>Assessment:</strong> The trigger fired according to its threshold, but the threshold may no longer represent meaningful risk.</p>
+              <p class="small"><strong>Adaptation:</strong> Adjust the threshold, change the signal, or add context such as severity, persistence, or affected users.</p>
             </div>
           </div>
         </div>
@@ -175,7 +199,7 @@
             <p>Most reviews ask:</p>
             <p><strong>What should we do?</strong></p>
             <p>Clarity asks:</p>
-            <p><strong>What do we believe, why do we believe it, what would require immediate action, and what would change our minds?</strong></p>
+            <p><strong>What do we believe, why do we believe it, what signal and threshold are we watching, what would require immediate action, and what would change our minds or the trigger itself?</strong></p>
           </div>
         </div>
       </section>
