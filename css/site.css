@@ -605,6 +605,29 @@ h3{line-height:1.2;}
 .recommendation-panel{
   background:linear-gradient(180deg, rgba(125,211,252,0.08), rgba(255,255,255,0.03));
 }
+
+.advanced-panel{
+  margin-top:18px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:rgba(255,255,255,0.02);
+}
+
+.advanced-panel summary{
+  cursor:pointer;
+  list-style:none;
+  padding:14px 16px;
+  font-weight:700;
+  color:var(--text);
+}
+
+.advanced-panel summary::-webkit-details-marker{
+  display:none;
+}
+
+.advanced-panel-body{
+  padding:0 16px 16px;
+}
 .form-honeypot{
   position:absolute;
   left:-9999px;

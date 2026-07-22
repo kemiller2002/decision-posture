@@ -8,36 +8,46 @@
     claim: document.getElementById("summary-claim"),
     context: document.getElementById("summary-context"),
     posture: document.getElementById("summary-posture"),
-    evidence: document.getElementById("summary-evidence"),
-    assumptions: document.getElementById("summary-assumptions"),
+    decisionNow: document.getElementById("summary-decision-now"),
     confidence: document.getElementById("summary-confidence"),
     correctability: document.getElementById("summary-correctability"),
-    decisionNow: document.getElementById("summary-decision-now"),
     whatChanged: document.getElementById("summary-what-changed"),
     changedCard: document.getElementById("summary-changed-card"),
+    evidence: document.getElementById("summary-evidence"),
+    assumptions: document.getElementById("summary-assumptions"),
     owner: document.getElementById("summary-owner"),
+    mindChange: document.getElementById("summary-mind-change"),
     monitoringSignal: document.getElementById("summary-monitoring-signal"),
+    monitoringSignalCard: document.getElementById("summary-monitoring-signal-card"),
     threshold: document.getElementById("summary-threshold"),
+    thresholdCard: document.getElementById("summary-threshold-card"),
     triggerClaim: document.getElementById("summary-trigger-claim"),
+    triggerClaimCard: document.getElementById("summary-trigger-claim-card"),
     actionTrigger: document.getElementById("summary-action-trigger"),
+    actionTriggerCard: document.getElementById("summary-action-trigger-card"),
     immediateResponse: document.getElementById("summary-immediate-response"),
+    immediateResponseCard: document.getElementById("summary-immediate-response-card"),
     reassessmentTrigger: document.getElementById("summary-reassessment-trigger"),
+    reassessmentTriggerCard: document.getElementById("summary-reassessment-trigger-card"),
     triggerReassessment: document.getElementById("summary-trigger-reassessment"),
+    triggerReassessmentCard: document.getElementById("summary-trigger-reassessment-card"),
     recommendation: document.getElementById("summary-recommendation"),
     note: document.getElementById("summary-note"),
     noteCard: document.getElementById("summary-note-card"),
     markdown: document.getElementById("summary-markdown"),
   };
+
   const copyButton = document.getElementById("copy-markdown");
   const downloadButton = document.getElementById("download-report");
   const printButton = document.getElementById("print-report");
   const copyStatus = document.getElementById("copy-status");
+  const recommendationTitle = document.getElementById("recommendation-title");
+  const recommendationBody = document.getElementById("recommendation-body");
+  const reassessmentChangeField = document.getElementById("reassessment-change-field");
   const radioInputs = Array.from(form.querySelectorAll('input[type="radio"]'));
   const postureInputs = Array.from(form.querySelectorAll('input[name="posture"]'));
   const confidenceInputs = Array.from(form.querySelectorAll('input[name="confidence"]'));
-  const reassessmentChangeField = document.getElementById("reassessment-change-field");
-  const recommendationTitle = document.getElementById("recommendation-title");
-  const recommendationBody = document.getElementById("recommendation-body");
+
   const guidanceFields = {
     posture: {
       title: document.getElementById("posture-guidance-title"),
@@ -50,49 +60,55 @@
       prompt: document.getElementById("confidence-guidance-prompt"),
     },
   };
-  let currentMarkdown = "";
-  let currentHtmlReport = "";
-  let copyResetTimer = null;
+
   const guidanceContent = {
     posture: {
       Discovery: {
-        title: "Discovery favors learning over defense.",
-        body: "Use this when the claim is still being explored. The goal is to reduce uncertainty, not act more certain than the evidence allows.",
-        prompt: "Helpful prompt: What evidence would move this claim from plausible to justified?",
+        title: "Suggested posture: Discovery",
+        body: "This claim looks exploratory. The next move is usually learning, not stronger commitment.",
+        prompt: "Helpful prompt: What evidence would make this claim stronger?",
       },
       Commitment: {
-        title: "Commitment means the claim is guiding live action.",
-        body: "Use this when resources, timelines, policy, or execution already depend on the claim. Evidence, ownership, and trigger quality should be stronger here.",
-        prompt: "Helpful prompt: Is the evidence strong enough for the consequences and correctability of being wrong?",
+        title: "Suggested posture: Commitment",
+        body: "This claim appears to be guiding a live decision or action. The next step should match the cost of being wrong.",
+        prompt: "Helpful prompt: Is the evidence strong enough for the size of the next step?",
       },
       Reassessment: {
-        title: "Reassessment means a once-accepted claim is back under review.",
-        body: "Use this when time, outcomes, or new evidence suggest the original claim may no longer fit reality.",
-        prompt: "Helpful prompt: What changed, and what would tell us the old claim should be revised or retired?",
+        title: "Suggested posture: Reassessment",
+        body: "Something has changed, so the earlier claim should be reviewed before extending commitment.",
+        prompt: "Helpful prompt: What changed, and what no longer holds?",
       },
     },
     confidence: {
       Low: {
         title: "Low confidence should slow commitment.",
-        body: "The claim may be plausible, but the evidence is still weak, incomplete, or contested.",
-        prompt: "Guidance: If a decision is still required now, reduce scope or increase correctability.",
+        body: "The claim may be plausible, but the current support is still weak or incomplete.",
+        prompt: "Guidance: Gather evidence or reduce the size of the bet.",
       },
       Moderate: {
-        title: "Moderate confidence means the claim is usable but still exposed.",
-        body: "There is some support, but important assumptions or gaps remain.",
-        prompt: "Guidance: Make the owner, monitoring signal, and reassessment path explicit.",
+        title: "Moderate confidence means some support exists.",
+        body: "There is real support, but important gaps or assumptions remain.",
+        prompt: "Guidance: Keep the owner and the review condition explicit.",
       },
       High: {
-        title: "High confidence still needs explicit challenge.",
-        body: "The claim appears strongly supported, but it still needs an owner and a trigger model so action does not drift unquestioned.",
-        prompt: "Guidance: High confidence is strongest when the trigger model is also explicit and credible.",
+        title: "High confidence still needs a way to be revised.",
+        body: "The claim appears well-supported, but it should still remain reviewable.",
+        prompt: "Guidance: Make sure the next step is proportional to the evidence.",
       },
     },
   };
 
+  let currentMarkdown = "";
+  let currentHtmlReport = "";
+  let copyResetTimer = null;
+
   function readValue(formData, key) {
     const value = formData.get(key);
     return typeof value === "string" && value.trim() ? value.trim() : "Not provided.";
+  }
+
+  function shouldShow(value) {
+    return value !== "Not provided.";
   }
 
   function syncChoiceState() {
@@ -103,6 +119,19 @@
     });
   }
 
+  function findCheckedValue(inputs) {
+    const match = inputs.find(function (input) {
+      return input.checked;
+    });
+    return match ? match.value : "";
+  }
+
+  function inferPosture(values) {
+    if (shouldShow(values.whatChanged)) return "Reassessment";
+    if (values.decisionNow === "Yes") return "Commitment";
+    return "Discovery";
+  }
+
   function setGuidance(group, content) {
     const targets = guidanceFields[group];
     if (!targets || !content) return;
@@ -111,34 +140,12 @@
     if (targets.prompt) targets.prompt.textContent = content.prompt || "";
   }
 
-  function findCheckedValue(inputs) {
-    const match = inputs.find(function (input) {
-      return input.checked;
-    });
-    return match ? match.value : "";
-  }
-
-  function syncGuidance() {
-    const postureValue = findCheckedValue(postureInputs);
-    const confidenceValue = findCheckedValue(confidenceInputs);
-    setGuidance("posture", guidanceContent.posture[postureValue] || {
-      title: "Choose the claim posture.",
-      body: "Pick the posture that best matches whether the claim is still being explored, already guiding action, or being reviewed again.",
-      prompt: "",
-    });
-    setGuidance("confidence", guidanceContent.confidence[confidenceValue] || {
-      title: "Choose the confidence level.",
-      body: "Select the level that best matches the current evidence, not the hoped-for outcome.",
-      prompt: "",
-    });
-  }
-
   function readFormState() {
     const formData = new FormData(form);
-    return {
+    const explicitPosture = readValue(formData, "posture");
+    const values = {
       claim: readValue(formData, "claim"),
       context: readValue(formData, "claim_context"),
-      posture: readValue(formData, "posture"),
       decisionNow: readValue(formData, "decision_now"),
       whatChanged: readValue(formData, "what_changed"),
       evidence: readValue(formData, "evidence"),
@@ -146,6 +153,7 @@
       confidence: readValue(formData, "confidence"),
       correctability: readValue(formData, "correctability"),
       owner: readValue(formData, "owner"),
+      mindChange: readValue(formData, "mind_change"),
       monitoringSignal: readValue(formData, "monitoring_signal"),
       threshold: readValue(formData, "threshold"),
       triggerClaim: readValue(formData, "trigger_claim"),
@@ -155,6 +163,27 @@
       triggerReassessment: readValue(formData, "trigger_reassessment"),
       recommendationNote: readValue(formData, "recommendation_note"),
     };
+
+    const inferred = inferPosture(values);
+    values.posture = explicitPosture !== "Not provided." ? explicitPosture : inferred;
+    return values;
+  }
+
+  function syncGuidance() {
+    const values = readFormState();
+    const confidenceValue = findCheckedValue(confidenceInputs);
+
+    setGuidance("posture", guidanceContent.posture[values.posture] || {
+      title: "Suggested posture",
+      body: "The posture will be suggested from the claim state unless you override it.",
+      prompt: "",
+    });
+
+    setGuidance("confidence", guidanceContent.confidence[confidenceValue] || {
+      title: "Choose the confidence level.",
+      body: "Select the level that matches the current evidence, not the hoped-for outcome.",
+      prompt: "",
+    });
   }
 
   function inferRecommendation(values) {
@@ -164,34 +193,28 @@
     const decisionNow = values.decisionNow;
 
     if (posture === "Reassessment") {
-      if (confidence === "Low" || values.whatChanged !== "Not provided.") {
-        return {
-          title: "Reassess before extending commitment.",
-          body: "Reality appears to have shifted or the current claim is no longer stable. Rework the claim, owner, and trigger model before continuing unchanged.",
-        };
-      }
       return {
-        title: "Adapt with explicit monitoring.",
-        body: "The claim is under review. Tighten the updated trigger model, capture what changed, and adjust the current plan rather than assuming the earlier commitment still holds.",
+        title: "Reassess before extending commitment.",
+        body: "Something has changed. Review the claim, update the owner if needed, and decide whether the current plan still fits reality.",
       };
     }
 
     if (posture === "Discovery") {
-      if (decisionNow === "Yes" && correctability === "Low") {
+      if (decisionNow === "Yes" && correctability === "Hard to recover") {
         return {
           title: "Reduce scope before committing.",
-          body: "A live decision is needed, but low correctability and exploratory posture make full commitment hard to justify. Shrink the bet or increase recovery options first.",
+          body: "A live decision is needed, but recovery is hard if the claim is wrong. Shrink the bet or increase evidence first.",
         };
       }
-      if (confidence === "High" && correctability === "High") {
+      if (confidence === "High" && correctability === "Easy to recover") {
         return {
-          title: "Proceed with constrained commitment.",
-          body: "The claim appears usable for a small, correctable step. Move forward, but preserve the monitoring and reassessment path.",
+          title: "Proceed with a small next step.",
+          body: "The claim appears strong enough for a limited, reviewable move. Keep the owner and the mind-change condition visible.",
         };
       }
       return {
         title: "Gather evidence before stronger commitment.",
-        body: "Discovery posture usually means learning is the next move. Identify the evidence that would justify commitment rather than relying on confidence alone.",
+        body: "The claim still looks exploratory. Identify the evidence that would justify a larger commitment.",
       };
     }
 
@@ -199,38 +222,34 @@
       if (confidence === "Low") {
         return {
           title: "Reduce scope and gather evidence.",
-          body: "The claim is already guiding action, but confidence is weak. Lower the exposure, tighten ownership, and collect stronger support before extending commitment.",
+          body: "The claim is guiding action, but the support is weak. Lower exposure and strengthen the evidence before extending commitment.",
         };
       }
-      if (correctability === "Low" && confidence !== "High") {
+      if (correctability === "Hard to recover" && confidence !== "High") {
         return {
           title: "Reduce scope before proceeding.",
-          body: "Commitment with limited recovery requires stronger support. Narrow the commitment or raise the evidence standard before continuing at full strength.",
+          body: "Recovery is hard and the support is not strong enough yet. Narrow the commitment or raise the evidence standard.",
         };
       }
-      if (confidence === "High") {
-        return {
-          title: "Proceed with explicit monitoring.",
-          body: "The claim appears strong enough for the current commitment. Keep the owner, signal, threshold, and reassessment path visible so the commitment stays revisable.",
-        };
-      }
+      return {
+        title: "Proceed, but keep it reviewable.",
+        body: "The claim appears strong enough for the current commitment. Keep the owner and the mind-change condition visible so the commitment stays revisable.",
+      };
     }
 
     return {
-      title: "Complete the evidence-to-action chain.",
-      body: "The claim may be worth acting on, but the next move should follow from the posture, evidence quality, correctability, and trigger model together.",
+      title: "Complete the core assessment.",
+      body: "The claim may be worth acting on, but the next move should follow from the current evidence, assumptions, and recovery difficulty together.",
     };
   }
 
   function syncConditionalState() {
-    const postureValue = findCheckedValue(postureInputs);
+    const values = readFormState();
     if (reassessmentChangeField) {
-      const isReassessment = postureValue === "Reassessment";
+      const isReassessment = values.posture === "Reassessment";
       reassessmentChangeField.hidden = !isReassessment;
       const textarea = reassessmentChangeField.querySelector("textarea");
-      if (textarea) {
-        textarea.required = isReassessment;
-      }
+      if (textarea) textarea.required = isReassessment;
     }
   }
 
@@ -248,16 +267,14 @@
   }
 
   function clearCopyStatusLater() {
-    if (copyResetTimer) {
-      window.clearTimeout(copyResetTimer);
-    }
+    if (copyResetTimer) window.clearTimeout(copyResetTimer);
     copyResetTimer = window.setTimeout(function () {
       setCopyStatus("");
     }, 1600);
   }
 
   function buildMarkdown(values) {
-    const sections = [
+    const lines = [
       "# Clarity Assessment Report",
       "",
       "## Claim",
@@ -270,15 +287,10 @@
       values.decisionNow,
     ];
 
-    if (values.context !== "Not provided.") {
-      sections.push("", "## Context", values.context);
-    }
+    if (shouldShow(values.context)) lines.push("", "## Context", values.context);
+    if (shouldShow(values.whatChanged)) lines.push("", "## What Changed", values.whatChanged);
 
-    if (values.whatChanged !== "Not provided.") {
-      sections.push("", "## What Changed", values.whatChanged);
-    }
-
-    const output = sections.concat([
+    lines.push(
       "",
       "## Evidence",
       values.evidence,
@@ -289,51 +301,41 @@
       "## Confidence",
       values.confidence,
       "",
-      "## Correctability",
+      "## Recovery Difficulty",
       values.correctability,
       "",
       "## Owner",
       values.owner,
       "",
-      "## Monitoring Signal",
-      values.monitoringSignal,
-      "",
-      "## Threshold",
-      values.threshold,
-      "",
-      "## Trigger Claim",
-      values.triggerClaim,
-      "",
-      "## Immediate Action Trigger",
-      values.actionTrigger,
-      "",
-      "## Immediate Response",
-      values.immediateResponse,
-      "",
-      "## Reassessment Trigger",
-      values.reassessmentTrigger,
-      "",
-      "## Trigger Reassessment",
-      values.triggerReassessment,
+      "## What Would Change Your Mind",
+      values.mindChange,
       "",
       "## Generated Recommendation",
       values.recommendation.title,
       "",
-      values.recommendation.body,
+      values.recommendation.body
+    );
+
+    if (shouldShow(values.monitoringSignal)) lines.push("", "## Monitoring Signal", values.monitoringSignal);
+    if (shouldShow(values.threshold)) lines.push("", "## Threshold", values.threshold);
+    if (shouldShow(values.triggerClaim)) lines.push("", "## Trigger Claim", values.triggerClaim);
+    if (shouldShow(values.actionTrigger)) lines.push("", "## Immediate Action Trigger", values.actionTrigger);
+    if (shouldShow(values.immediateResponse)) lines.push("", "## Immediate Response", values.immediateResponse);
+    if (shouldShow(values.reassessmentTrigger)) lines.push("", "## Reassessment Trigger", values.reassessmentTrigger);
+    if (shouldShow(values.triggerReassessment)) lines.push("", "## Trigger Reassessment", values.triggerReassessment);
+    if (shouldShow(values.recommendationNote)) lines.push("", "## Operator Note", values.recommendationNote);
+
+    lines.push(
       "",
       "## Reflection Questions",
       "- Does confidence exceed what the evidence can currently justify?",
       "- Are assumptions being treated as facts?",
       "- Who owns the consequences if the claim is wrong?",
-      "- What would force immediate response versus deeper reassessment?",
-      "- What would invalidate the trigger model itself?",
-    ]);
+      "- What would change your mind about this claim?",
+      "- Is the next step too large for the current level of evidence?"
+    );
 
-    if (values.recommendationNote !== "Not provided.") {
-      output.push("", "## Operator Note", values.recommendationNote);
-    }
-
-    return output.join("\n");
+    return lines.join("\n");
   }
 
   function escapeHtml(value) {
@@ -348,7 +350,7 @@
   function reportSection(title, value, wide) {
     return [
       '<section class="report-card',
-      wide ? ' report-card-wide' : "",
+      wide ? " report-card-wide" : "",
       '">',
       "<h3>",
       escapeHtml(title),
@@ -361,44 +363,29 @@
   }
 
   function buildHtmlReport(values) {
-    const reflections = [
-      "Does confidence exceed what the evidence can currently justify?",
-      "Are assumptions being treated as facts?",
-      "Who owns the consequences if the claim is wrong?",
-      "What would force immediate response versus deeper reassessment?",
-      "What would invalidate the trigger model itself?",
-    ];
-
     const sections = [
       reportSection("Claim", values.claim, true),
       reportSection("Context", values.context, false),
       reportSection("Posture", values.posture, false),
       reportSection("Decision Required Now", values.decisionNow, false),
       reportSection("Confidence", values.confidence, false),
-      reportSection("Correctability", values.correctability, false),
-    ];
-
-    if (values.whatChanged !== "Not provided.") {
-      sections.push(reportSection("What Changed", values.whatChanged, true));
-    }
-
-    sections.push(
+      reportSection("Recovery Difficulty", values.correctability, false),
       reportSection("Evidence", values.evidence, true),
       reportSection("Assumptions", values.assumptions, true),
       reportSection("Owner", values.owner, false),
-      reportSection("Monitoring Signal", values.monitoringSignal, false),
-      reportSection("Threshold", values.threshold, false),
-      reportSection("Trigger Claim", values.triggerClaim, false),
-      reportSection("Immediate Action Trigger", values.actionTrigger, false),
-      reportSection("Immediate Response", values.immediateResponse, false),
-      reportSection("Reassessment Trigger", values.reassessmentTrigger, false),
-      reportSection("Trigger Reassessment", values.triggerReassessment, false),
-      reportSection("Generated Recommendation", values.recommendation.title + "\n\n" + values.recommendation.body, true)
-    );
+      reportSection("What Would Change Your Mind", values.mindChange, true),
+      reportSection("Generated Recommendation", values.recommendation.title + "\n\n" + values.recommendation.body, true),
+    ];
 
-    if (values.recommendationNote !== "Not provided.") {
-      sections.push(reportSection("Operator Note", values.recommendationNote, true));
-    }
+    if (shouldShow(values.whatChanged)) sections.push(reportSection("What Changed", values.whatChanged, true));
+    if (shouldShow(values.monitoringSignal)) sections.push(reportSection("Monitoring Signal", values.monitoringSignal, true));
+    if (shouldShow(values.threshold)) sections.push(reportSection("Threshold", values.threshold, false));
+    if (shouldShow(values.triggerClaim)) sections.push(reportSection("Trigger Claim", values.triggerClaim, false));
+    if (shouldShow(values.actionTrigger)) sections.push(reportSection("Immediate Action Trigger", values.actionTrigger, false));
+    if (shouldShow(values.immediateResponse)) sections.push(reportSection("Immediate Response", values.immediateResponse, false));
+    if (shouldShow(values.reassessmentTrigger)) sections.push(reportSection("Reassessment Trigger", values.reassessmentTrigger, false));
+    if (shouldShow(values.triggerReassessment)) sections.push(reportSection("Trigger Reassessment", values.triggerReassessment, false));
+    if (shouldShow(values.recommendationNote)) sections.push(reportSection("Operator Note", values.recommendationNote, true));
 
     return [
       "<!doctype html>",
@@ -430,11 +417,17 @@
       '<article class="report-shell">',
       '<p class="report-kicker">Completed assessment</p>',
       "<h1>Clarity Assessment Report</h1>",
-      '<p class="report-copy">A local summary of the claim, current justification, monitoring model, and recommended next move.</p>',
+      '<p class="report-copy">A local summary of the claim, current justification, and recommended next move.</p>',
       '<div class="report-grid">',
       sections.join(""),
       '<section class="report-card report-card-wide"><h3>Reflection Questions</h3><ul class="report-list">',
-      reflections.map(function (item) {
+      [
+        "Does confidence exceed what the evidence can currently justify?",
+        "Are assumptions being treated as facts?",
+        "Who owns the consequences if the claim is wrong?",
+        "What would change your mind about this claim?",
+        "Is the next step too large for the current level of evidence?",
+      ].map(function (item) {
         return "<li>" + escapeHtml(item) + "</li>";
       }).join(""),
       "</ul></section>",
@@ -499,19 +492,11 @@
     input.addEventListener("change", syncRecommendationPreview);
   });
 
-  if (copyButton) {
-    copyButton.addEventListener("click", copyMarkdown);
-  }
-
-  if (downloadButton) {
-    downloadButton.addEventListener("click", downloadHtmlReport);
-  }
-
+  if (copyButton) copyButton.addEventListener("click", copyMarkdown);
+  if (downloadButton) downloadButton.addEventListener("click", downloadHtmlReport);
   if (printButton) {
     printButton.addEventListener("click", function () {
-      if (!summary.hidden) {
-        window.print();
-      }
+      if (!summary.hidden) window.print();
     });
   }
 
@@ -529,23 +514,31 @@
     fields.context.textContent = values.context;
     fields.posture.textContent = values.posture;
     fields.decisionNow.textContent = values.decisionNow;
-    fields.whatChanged.textContent = values.whatChanged;
-    fields.changedCard.hidden = values.whatChanged === "Not provided.";
-    fields.evidence.textContent = values.evidence;
-    fields.assumptions.textContent = values.assumptions;
     fields.confidence.textContent = values.confidence;
     fields.correctability.textContent = values.correctability;
+    fields.whatChanged.textContent = values.whatChanged;
+    fields.changedCard.hidden = !shouldShow(values.whatChanged);
+    fields.evidence.textContent = values.evidence;
+    fields.assumptions.textContent = values.assumptions;
     fields.owner.textContent = values.owner;
+    fields.mindChange.textContent = values.mindChange;
     fields.monitoringSignal.textContent = values.monitoringSignal;
+    fields.monitoringSignalCard.hidden = !shouldShow(values.monitoringSignal);
     fields.threshold.textContent = values.threshold;
+    fields.thresholdCard.hidden = !shouldShow(values.threshold);
     fields.triggerClaim.textContent = values.triggerClaim;
+    fields.triggerClaimCard.hidden = !shouldShow(values.triggerClaim);
     fields.actionTrigger.textContent = values.actionTrigger;
+    fields.actionTriggerCard.hidden = !shouldShow(values.actionTrigger);
     fields.immediateResponse.textContent = values.immediateResponse;
+    fields.immediateResponseCard.hidden = !shouldShow(values.immediateResponse);
     fields.reassessmentTrigger.textContent = values.reassessmentTrigger;
+    fields.reassessmentTriggerCard.hidden = !shouldShow(values.reassessmentTrigger);
     fields.triggerReassessment.textContent = values.triggerReassessment;
+    fields.triggerReassessmentCard.hidden = !shouldShow(values.triggerReassessment);
     fields.recommendation.textContent = values.recommendation.title + " " + values.recommendation.body;
     fields.note.textContent = values.recommendationNote;
-    fields.noteCard.hidden = values.recommendationNote === "Not provided.";
+    fields.noteCard.hidden = !shouldShow(values.recommendationNote);
 
     currentMarkdown = buildMarkdown(values);
     currentHtmlReport = buildHtmlReport(values);
@@ -555,6 +548,4 @@
     setCopyStatus("");
     summary.scrollIntoView({ behavior: "smooth", block: "start" });
   });
-
-  // TODO: Add JSON export for future Clarity Audit / reassessment workflows.
 })();

@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Try Clarity — Clarity Framework</title>
-  <meta name="description" content="Run a guided Clarity quick assessment on one live claim, with local export and no backend required." />
+  <meta name="description" content="Try a beginner-friendly Clarity quick assessment on one live claim, with local export and no backend required." />
   <meta property="og:title" content="Try Clarity — Clarity Framework" />
-  <meta property="og:description" content="Apply Clarity to one real claim using the same core fields the framework teaches: claim, evidence, assumptions, ownership, monitoring, triggers, and reassessment." />
+  <meta property="og:description" content="A fast first-run Clarity workflow: claim, evidence, assumptions, owner, what would change your mind, and a generated recommendation." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/logo.svg" />
   <meta name="theme-color" content="#070b12" />
@@ -43,8 +43,8 @@
     <main id="main">
       <section class="hero hero-compact">
         <div class="eyebrow">Guided quick assessment</div>
-        <h1>Try Clarity on one live claim.</h1>
-        <p class="lede">This workflow now follows the framework directly: claim, posture, evidence, assumptions, confidence, ownership, monitoring, triggers, reassessment, and a generated recommendation.</p>
+        <h1>Try Clarity in 3 to 5 minutes.</h1>
+        <p class="lede">Start with the smallest version that shows the value: the claim, the evidence, the assumptions, the owner, and what would change your mind. Deeper trigger design is optional.</p>
       </section>
 
       <section class="section">
@@ -62,7 +62,7 @@
                 <div class="phase-head">
                   <p class="phase-kicker">Phase 1</p>
                   <h2 id="phase-claim">State the claim</h2>
-                  <p class="small">Start with one claim, not a whole project. If the claim is unclear, the rest of the assessment will be weak.</p>
+                  <p class="small">One claim is enough. The goal is to get to a useful recommendation quickly, not to document the whole world.</p>
                 </div>
 
                 <div class="form-field">
@@ -71,55 +71,21 @@
                   <textarea id="claim" name="claim" required></textarea>
                 </div>
 
-                <div class="form-field">
-                  <label for="claim-context">What is this claim about?</label>
-                  <select id="claim-context" name="claim_context" class="select-input">
-                    <option value="">Optional context</option>
-                    <option>Project</option>
-                    <option>Product Idea</option>
-                    <option>Startup</option>
-                    <option>Architecture</option>
-                    <option>Methodology</option>
-                    <option>Strategy</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-
                 <fieldset class="form-field choice-fieldset">
-                  <legend>Which posture best matches the claim right now?</legend>
-                  <div class="choice-row" role="radiogroup" aria-label="Posture">
-                    <label class="choice-pill" for="posture-discovery"><input id="posture-discovery" type="radio" name="posture" value="Discovery" required /> <span>Discovery</span></label>
-                    <label class="choice-pill" for="posture-commitment"><input id="posture-commitment" type="radio" name="posture" value="Commitment" /> <span>Commitment</span></label>
-                    <label class="choice-pill" for="posture-reassessment"><input id="posture-reassessment" type="radio" name="posture" value="Reassessment" /> <span>Reassessment</span></label>
-                  </div>
-                  <div class="guidance-panel" id="posture-guidance" aria-live="polite">
-                    <p class="guidance-label">Why this exists</p>
-                    <p class="guidance-title" id="posture-guidance-title"></p>
-                    <p class="guidance-body" id="posture-guidance-body"></p>
-                    <p class="guidance-prompt" id="posture-guidance-prompt"></p>
-                  </div>
-                </fieldset>
-
-                <fieldset class="form-field choice-fieldset">
-                  <legend>Is a decision or live commitment required now?</legend>
+                  <legend>Do you need to act on this now?</legend>
                   <div class="choice-row" role="radiogroup" aria-label="Decision required now">
                     <label class="choice-pill" for="decision-now-yes"><input id="decision-now-yes" type="radio" name="decision_now" value="Yes" required /> <span>Yes</span></label>
                     <label class="choice-pill" for="decision-now-unsure"><input id="decision-now-unsure" type="radio" name="decision_now" value="Not yet clear" /> <span>Not yet clear</span></label>
                     <label class="choice-pill" for="decision-now-no"><input id="decision-now-no" type="radio" name="decision_now" value="No" /> <span>No</span></label>
                   </div>
                 </fieldset>
-
-                <div class="form-field conditional-field" id="reassessment-change-field" hidden>
-                  <label for="what-changed">What changed that forced this claim back into review?</label>
-                  <textarea id="what-changed" name="what_changed"></textarea>
-                </div>
               </section>
 
               <section class="phase-card" aria-labelledby="phase-justification">
                 <div class="phase-head">
                   <p class="phase-kicker">Phase 2</p>
-                  <h2 id="phase-justification">Justify the claim</h2>
-                  <p class="small">Separate support from assumption, then check whether confidence is outrunning the evidence.</p>
+                  <h2 id="phase-justification">Show why the claim matters</h2>
+                  <p class="small">This is the value of Clarity: what supports the claim, what is assumed, how exposed you are if it is wrong, and who owns the consequences.</p>
                 </div>
 
                 <div class="form-field">
@@ -140,7 +106,7 @@
                     <label class="choice-pill" for="confidence-high"><input id="confidence-high" type="radio" name="confidence" value="High" /> <span>High</span></label>
                   </div>
                   <div class="guidance-panel" id="confidence-guidance" aria-live="polite">
-                    <p class="guidance-label">Confidence debt check</p>
+                    <p class="guidance-label">Confidence check</p>
                     <p class="guidance-title" id="confidence-guidance-title"></p>
                     <p class="guidance-body" id="confidence-guidance-body"></p>
                     <p class="guidance-prompt" id="confidence-guidance-prompt"></p>
@@ -148,72 +114,111 @@
                 </fieldset>
 
                 <fieldset class="form-field choice-fieldset">
-                  <legend>How correctable is action if the claim is wrong?</legend>
-                  <div class="choice-row" role="radiogroup" aria-label="Correctability">
-                    <label class="choice-pill" for="correctability-high"><input id="correctability-high" type="radio" name="correctability" value="High" required /> <span>High</span></label>
-                    <label class="choice-pill" for="correctability-moderate"><input id="correctability-moderate" type="radio" name="correctability" value="Moderate" /> <span>Moderate</span></label>
-                    <label class="choice-pill" for="correctability-low"><input id="correctability-low" type="radio" name="correctability" value="Low" /> <span>Low</span></label>
+                  <legend>If this claim is wrong, how hard is recovery?</legend>
+                  <div class="choice-row" role="radiogroup" aria-label="Recovery difficulty">
+                    <label class="choice-pill" for="correctability-high"><input id="correctability-high" type="radio" name="correctability" value="Easy to recover" required /> <span>Easy to recover</span></label>
+                    <label class="choice-pill" for="correctability-moderate"><input id="correctability-moderate" type="radio" name="correctability" value="Some recovery cost" /> <span>Some recovery cost</span></label>
+                    <label class="choice-pill" for="correctability-low"><input id="correctability-low" type="radio" name="correctability" value="Hard to recover" /> <span>Hard to recover</span></label>
                   </div>
                   <div class="callout correctability-note">
-                    <strong>Why this exists:</strong> Correctability calibrates how much evidence is needed before commitment. Low correctability means recovery is hard, expensive, or slow if the claim is wrong.
+                    <strong>Why this exists:</strong> If recovery is hard, you need stronger justification before committing.
                   </div>
                 </fieldset>
 
                 <div class="form-field">
-                  <label for="owner">Who owns this claim and its consequences?</label>
+                  <label for="owner">Who is responsible if this claim is wrong?</label>
                   <input id="owner" name="owner" type="text" required />
                 </div>
-              </section>
-
-              <section class="phase-card" aria-labelledby="phase-monitoring">
-                <div class="phase-head">
-                  <p class="phase-kicker">Phase 3</p>
-                  <h2 id="phase-monitoring">Define monitoring and triggers</h2>
-                  <p class="small">The framework treats triggers as claims too. A useful trigger names what you watch, what threshold matters, why it matters, and how you will respond.</p>
-                </div>
 
                 <div class="form-field">
-                  <label for="monitoring-signal">What signal will you monitor?</label>
-                  <textarea id="monitoring-signal" name="monitoring_signal" required></textarea>
+                  <label for="mind-change">What would change your mind?</label>
+                  <p class="small form-copy">This can be new evidence, a missed outcome, a user signal, or something that would make the claim no longer hold.</p>
+                  <textarea id="mind-change" name="mind_change" required></textarea>
                 </div>
 
-                <div class="form-field">
-                  <label for="threshold">What threshold, event, or condition requires attention?</label>
-                  <textarea id="threshold" name="threshold" required></textarea>
-                </div>
+                <details class="advanced-panel">
+                  <summary>Advanced trigger design</summary>
+                  <div class="advanced-panel-body">
+                    <p class="small">Skip this on your first pass if you want. Use it when you want the fuller operating model.</p>
 
-                <div class="form-field">
-                  <label for="trigger-claim">Why does that signal and threshold matter?</label>
-                  <p class="small form-copy">State the trigger claim explicitly: what does crossing this threshold mean?</p>
-                  <textarea id="trigger-claim" name="trigger_claim" required></textarea>
-                </div>
+                    <div class="form-field">
+                      <label for="claim-context">What is this claim about?</label>
+                      <select id="claim-context" name="claim_context" class="select-input">
+                        <option value="">Optional context</option>
+                        <option>Project</option>
+                        <option>Product Idea</option>
+                        <option>Startup</option>
+                        <option>Architecture</option>
+                        <option>Methodology</option>
+                        <option>Strategy</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
 
-                <div class="form-field">
-                  <label for="action-trigger">What condition requires immediate action before deeper review?</label>
-                  <textarea id="action-trigger" name="action_trigger" required></textarea>
-                </div>
+                    <fieldset class="form-field choice-fieldset">
+                      <legend>Override the suggested posture if needed</legend>
+                      <div class="choice-row" role="radiogroup" aria-label="Posture">
+                        <label class="choice-pill" for="posture-discovery"><input id="posture-discovery" type="radio" name="posture" value="Discovery" /> <span>Discovery</span></label>
+                        <label class="choice-pill" for="posture-commitment"><input id="posture-commitment" type="radio" name="posture" value="Commitment" /> <span>Commitment</span></label>
+                        <label class="choice-pill" for="posture-reassessment"><input id="posture-reassessment" type="radio" name="posture" value="Reassessment" /> <span>Reassessment</span></label>
+                      </div>
+                      <div class="guidance-panel" id="posture-guidance" aria-live="polite">
+                        <p class="guidance-label">Suggested posture</p>
+                        <p class="guidance-title" id="posture-guidance-title"></p>
+                        <p class="guidance-body" id="posture-guidance-body"></p>
+                        <p class="guidance-prompt" id="posture-guidance-prompt"></p>
+                      </div>
+                    </fieldset>
 
-                <div class="form-field">
-                  <label for="immediate-response">What should happen immediately if that trigger occurs?</label>
-                  <textarea id="immediate-response" name="immediate_response" required></textarea>
-                </div>
+                    <div class="form-field conditional-field" id="reassessment-change-field" hidden>
+                      <label for="what-changed">What changed that forced this claim back into review?</label>
+                      <textarea id="what-changed" name="what_changed"></textarea>
+                    </div>
 
-                <div class="form-field">
-                  <label for="reassessment-trigger">What condition should force the claim back into reassessment?</label>
-                  <textarea id="reassessment-trigger" name="reassessment_trigger" required></textarea>
-                </div>
+                    <div class="form-field">
+                      <label for="monitoring-signal">What signal will you monitor?</label>
+                      <textarea id="monitoring-signal" name="monitoring_signal"></textarea>
+                    </div>
 
-                <div class="form-field">
-                  <label for="trigger-reassessment">What would tell you the trigger itself is too weak, too sensitive, or no longer useful?</label>
-                  <textarea id="trigger-reassessment" name="trigger_reassessment" required></textarea>
-                </div>
+                    <div class="form-field">
+                      <label for="threshold">What threshold, event, or condition requires attention?</label>
+                      <textarea id="threshold" name="threshold"></textarea>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="trigger-claim">Why does that signal and threshold matter?</label>
+                      <p class="small form-copy">State the trigger claim explicitly: what does crossing this threshold mean?</p>
+                      <textarea id="trigger-claim" name="trigger_claim"></textarea>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="action-trigger">What condition requires immediate action before deeper review?</label>
+                      <textarea id="action-trigger" name="action_trigger"></textarea>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="immediate-response">What should happen immediately if that trigger occurs?</label>
+                      <textarea id="immediate-response" name="immediate_response"></textarea>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="reassessment-trigger">What condition should force the claim back into reassessment?</label>
+                      <textarea id="reassessment-trigger" name="reassessment_trigger"></textarea>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="trigger-reassessment">What would tell you the trigger itself is too weak, too sensitive, or no longer useful?</label>
+                      <textarea id="trigger-reassessment" name="trigger_reassessment"></textarea>
+                    </div>
+                  </div>
+                </details>
               </section>
 
               <section class="phase-card" aria-labelledby="phase-outcome">
                 <div class="phase-head">
-                  <p class="phase-kicker">Phase 4</p>
+                  <p class="phase-kicker">Phase 3</p>
                   <h2 id="phase-outcome">Review the recommendation</h2>
-                  <p class="small">The recommendation is generated from posture, evidence confidence, decision pressure, and correctability. You can add a practical note if the default recommendation needs context.</p>
+                  <p class="small">The recommendation is generated from the quick assessment first. Add the advanced fields only if you want a deeper operating plan.</p>
                 </div>
 
                 <div class="guidance-panel recommendation-panel" aria-live="polite">
@@ -244,7 +249,7 @@
               <div>
                 <p class="report-kicker">Completed assessment</p>
                 <h2>Clarity Assessment Report</h2>
-                <p class="report-copy">A local summary of the claim, current justification, monitoring model, and recommended next move.</p>
+                <p class="report-copy">A local summary of the claim, current justification, and recommended next move.</p>
               </div>
               <div class="summary-actions" aria-label="Report actions">
                 <button class="btn btn-primary" type="button" id="print-report">Print / Save PDF</button>
@@ -276,7 +281,7 @@
                 <p id="summary-confidence"></p>
               </section>
               <section class="report-card">
-                <h3>Correctability</h3>
+                <h3>Recovery Difficulty</h3>
                 <p id="summary-correctability"></p>
               </section>
               <section class="report-card report-card-wide" id="summary-changed-card" hidden>
@@ -295,31 +300,35 @@
                 <h3>Owner</h3>
                 <p id="summary-owner"></p>
               </section>
-              <section class="report-card">
+              <section class="report-card report-card-wide">
+                <h3>What Would Change Your Mind</h3>
+                <p id="summary-mind-change"></p>
+              </section>
+              <section class="report-card report-card-wide" id="summary-monitoring-signal-card" hidden>
                 <h3>Monitoring Signal</h3>
                 <p id="summary-monitoring-signal"></p>
               </section>
-              <section class="report-card">
+              <section class="report-card" id="summary-threshold-card" hidden>
                 <h3>Threshold</h3>
                 <p id="summary-threshold"></p>
               </section>
-              <section class="report-card">
+              <section class="report-card" id="summary-trigger-claim-card" hidden>
                 <h3>Trigger Claim</h3>
                 <p id="summary-trigger-claim"></p>
               </section>
-              <section class="report-card">
+              <section class="report-card" id="summary-action-trigger-card" hidden>
                 <h3>Immediate Action Trigger</h3>
                 <p id="summary-action-trigger"></p>
               </section>
-              <section class="report-card">
+              <section class="report-card" id="summary-immediate-response-card" hidden>
                 <h3>Immediate Response</h3>
                 <p id="summary-immediate-response"></p>
               </section>
-              <section class="report-card">
+              <section class="report-card" id="summary-reassessment-trigger-card" hidden>
                 <h3>Reassessment Trigger</h3>
                 <p id="summary-reassessment-trigger"></p>
               </section>
-              <section class="report-card">
+              <section class="report-card" id="summary-trigger-reassessment-card" hidden>
                 <h3>Trigger Reassessment</h3>
                 <p id="summary-trigger-reassessment"></p>
               </section>
@@ -337,8 +346,8 @@
                   <li>Does confidence exceed what the evidence can currently justify?</li>
                   <li>Are assumptions being treated as facts?</li>
                   <li>Who owns the consequences if the claim is wrong?</li>
-                  <li>What would force immediate response versus deeper reassessment?</li>
-                  <li>What would invalidate the trigger model itself?</li>
+                  <li>What would change your mind about this claim?</li>
+                  <li>Is the next step too large for the current level of evidence?</li>
                 </ul>
               </section>
             </div>
@@ -354,7 +363,7 @@
 
       <div class="footer" role="contentinfo">
         <span><strong>Clarity Framework</strong> · Try Clarity</span>
-        <span>Quick assessment aligned to claims, ownership, monitoring, and reassessment</span>
+        <span>Fast first-run assessment with optional deeper trigger design</span>
       </div>
     </main>
   </div>
