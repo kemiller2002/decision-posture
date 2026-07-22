@@ -56,6 +56,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius:10px;
 }
 
+.skip-link{
+  position:absolute;
+  left:24px;
+  top:-48px;
+  z-index:20;
+  padding:10px 14px;
+  border-radius:12px;
+  background:var(--text);
+  color:var(--bg);
+  text-decoration:none;
+  font-weight:700;
+}
+
+.skip-link:focus{
+  top:18px;
+}
+
 .wrap{max-width:calc(var(--max) + 48px); margin:0 auto; padding:0 24px; position:relative;}
 
 /* Header */
@@ -198,6 +215,26 @@ h3{line-height:1.2;}
 .content{
   display:grid;
   gap:18px;
+}
+
+.hero-compact{
+  padding-bottom:8px;
+}
+
+.trust-strip{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 14px;
+  align-items:flex-start;
+  padding:14px 16px;
+  border:1px solid rgba(125,211,252,0.24);
+  border-radius:var(--radius-sm);
+  background:rgba(125,211,252,0.08);
+  color:var(--muted);
+}
+
+.trust-strip strong{
+  color:var(--text);
 }
 
 .diagram{
@@ -451,6 +488,39 @@ h3{line-height:1.2;}
   gap:12px;
   margin-top:12px;
 }
+
+.phase-shell{
+  display:grid;
+  gap:18px;
+}
+
+.phase-card{
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:rgba(255,255,255,0.03);
+}
+
+.phase-head{
+  margin-bottom:14px;
+}
+
+.phase-head h2{
+  margin-bottom:8px;
+}
+
+.phase-head .small{
+  margin:0;
+}
+
+.phase-kicker{
+  margin:0 0 8px;
+  color:var(--accent);
+  font-size:0.78rem;
+  font-weight:800;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+}
 .form-row{
   display:grid;
   gap:12px;
@@ -495,7 +565,7 @@ h3{line-height:1.2;}
 }
 
 .guidance-panel{
-  min-height:126px;
+  min-height:104px;
   margin-top:12px;
   padding:14px 16px;
   border:1px solid var(--line);
@@ -530,6 +600,10 @@ h3{line-height:1.2;}
 
 .correctability-note{
   margin-top:12px;
+}
+
+.recommendation-panel{
+  background:linear-gradient(180deg, rgba(125,211,252,0.08), rgba(255,255,255,0.03));
 }
 .form-honeypot{
   position:absolute;
@@ -748,7 +822,22 @@ h3{line-height:1.2;}
 
 @media (max-width: 720px){
   .site-header{flex-wrap:wrap; align-items:flex-start;}
-  .nav{width:100%;}
+  .brand-sub{display:none;}
+  .nav{
+    width:100%;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    padding-bottom:6px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+  }
+  .nav a{
+    white-space:nowrap;
+    flex:0 0 auto;
+  }
+  h1{font-size:2rem;}
+  .lede{font-size:1.02rem;}
+  .phase-card{padding:16px;}
   .report-grid{grid-template-columns:1fr;}
   .report-card-wide{grid-column:auto;}
 }
