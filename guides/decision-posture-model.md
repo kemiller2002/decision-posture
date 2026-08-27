@@ -140,7 +140,7 @@ Guardrail decisions emphasize prevention and protection.
 
 Strategic posture is used when decisions are **high impact and difficult to reverse**.
 
-These decisions require the most rigor.
+These decisions call for the strongest available justification, proportionate to the situation.
 
 Characteristics:
 
@@ -148,6 +148,8 @@ Characteristics:
 - senior ownership
 - cross-team coordination
 - long-term consequences
+
+This does not mean certainty is available or that a large process is automatically required. Time, the value of additional information, and the consequences of waiting still matter.
 
 Examples:
 

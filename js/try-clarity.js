@@ -81,9 +81,9 @@
     },
     confidence: {
       Low: {
-        title: "Low confidence should slow commitment.",
+        title: "Low confidence should stay visible and inform the next move.",
         body: "The claim may be plausible, but the current support is still weak or incomplete.",
-        prompt: "Guidance: Gather evidence or reduce the size of the bet.",
+        prompt: "Guidance: Consider the size and reversibility of the move without treating uncertainty as an automatic stop.",
       },
       Moderate: {
         title: "Moderate confidence means some support exists.",
@@ -202,8 +202,8 @@
     if (posture === "Discovery") {
       if (decisionNow === "Yes" && correctability === "Hard to recover") {
         return {
-          title: "Reduce scope before committing.",
-          body: "A live decision is needed, but recovery is hard if the claim is wrong. Shrink the bet or increase evidence first.",
+          title: "Choose the most defensible commitment available.",
+          body: "A live decision is needed and recovery is hard. Use the best information available, make the uncertainty explicit, and reduce exposure where feasible; if waiting is worse, decide without pretending certainty.",
         };
       }
       if (confidence === "High" && correctability === "Easy to recover") {
@@ -213,22 +213,22 @@
         };
       }
       return {
-        title: "Gather evidence before stronger commitment.",
-        body: "The claim still looks exploratory. Identify the evidence that would justify a larger commitment.",
+        title: "Keep the next move proportionate.",
+        body: "Match the move to what is known, what remains uncertain, and the consequences of being wrong. Learn more when worthwhile, or act with the uncertainty explicit.",
       };
     }
 
     if (posture === "Commitment") {
       if (confidence === "Low") {
         return {
-          title: "Reduce scope and gather evidence.",
-          body: "The claim is guiding action, but the support is weak. Lower exposure and strengthen the evidence before extending commitment.",
+          title: "Decide with the uncertainty visible.",
+          body: "The claim is guiding action, but support is weak. Gather more information or reduce exposure when practical; if the cost of waiting is greater, proceed with the assumption, owner, and review condition explicit.",
         };
       }
       if (correctability === "Hard to recover" && confidence !== "High") {
         return {
-          title: "Reduce scope before proceeding.",
-          body: "Recovery is hard and the support is not strong enough yet. Narrow the commitment or raise the evidence standard.",
+          title: "Make the justification match the consequences.",
+          body: "Recovery is hard and important uncertainty remains. Narrow the commitment or improve the justification where practical; if delay is more consequential, make the decision with that tradeoff explicit.",
         };
       }
       return {

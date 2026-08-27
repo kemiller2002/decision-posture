@@ -14,7 +14,7 @@ When posture breaks down, organizations:
 
 The Clarity Framework exists to preserve **disciplined decision posture under uncertainty**.
 
-It ensures every decision defines:
+For decisions whose consequences justify the effort, it helps define:
 
 - who owns it
 - what evidence matters
@@ -47,7 +47,7 @@ The Clarity Framework therefore focuses not on improving analysis, but on ensuri
 
 Clarity does not remove uncertainty.
 
-Clarity makes decisions **safe despite uncertainty**.
+Clarity makes uncertainty **visible, owned, and actionable**.
 
 ---
 
@@ -63,9 +63,9 @@ Violating these principles degrades decision quality.
 
 Organizations constantly encounter signals that may indicate risk, opportunity, or failure.
 
-Signals must not remain informal observations.
+Signals should not remain informal observations when ignoring them would materially affect a live commitment.
 
-When predefined thresholds are crossed, signals must trigger formal decision recognition so that ownership, posture, and evidence evaluation can begin.
+Where predefined thresholds are useful, crossing one should trigger the action or reassessment already judged appropriate. Many ordinary decisions do not need formal thresholds.
 
 ---
 
@@ -91,7 +91,7 @@ Clarity comes from defining the question that must be answered now and recognizi
 
 Not all decisions should be made the same way.
 
-The appropriate level of analysis, coordination, and evidence depends on the **impact** and **reversibility** of the decision.
+The appropriate level of analysis, coordination, and justification depends on the **impact**, **reversibility**, available time, and value of further information.
 
 Organizations fail when posture and consequence are misaligned.
 
@@ -101,11 +101,11 @@ Decision posture is normally defined during **decision architecture**, not durin
 
 ## Principle 4 — Reversibility Determines Speed
 
-The more reversible a decision is, the faster it should be made.
+The more reversible a decision is, the more readily it can favor speed and learning through action.
 
 Highly reversible decisions benefit from speed and iteration.
 
-Irreversible decisions require stronger evidence and greater care.
+Hard-to-reverse decisions call for stronger justification and greater care, but do not automatically require a heavy process or certainty that may be impossible to obtain.
 
 Organizations often invert this relationship.
 
@@ -113,7 +113,7 @@ Organizations often invert this relationship.
 
 ## Principle 5 — Decisions Require Clear Ownership
 
-Every decision must have a single accountable owner.
+Every material commitment should have a clear accountable owner. For small local decisions, this may simply be the person acting.
 
 Discussion may be collaborative, but responsibility for commitment cannot be collective.
 
@@ -150,19 +150,19 @@ Experiments, pilots, and analysis must eventually collapse into commitment.
 
 ## Principle 8 — Decisions Must Define Their Own Failure
 
-Every decision must define the conditions under which it will be reconsidered, corrected, or reversed.
+Consequential commitments should make clear what would cause reconsideration, correction, or reversal. For ordinary decisions, a simple answer to "what would change our minds?" is often enough.
 
 Without defined failure conditions, organizations cannot reliably detect when a decision is no longer working.
 
-Decisions that cannot detect failure cannot be safely executed under uncertainty.
+When failure would be costly or slow to appear, the ability to notice it is part of responsible execution under uncertainty.
 
 ---
 
-## Principle 9 — Evidence Must Be Admissible
+## Principle 9 — Evidence Must Be Relevant
 
 Not all information should influence decisions.
 
-Evidence must be evaluated for:
+Evidence should be considered in light of:
 
 - relevance
 - incentives
@@ -171,7 +171,7 @@ Evidence must be evaluated for:
 
 Organizations frequently mistake the presence of information for the presence of useful evidence.
 
-Truth and admissibility are not the same.
+Evidence may include measurements, direct observations, qualitative reports, technical facts and constraints, documented behavior, prior experience, experiments, and expert judgment. Judgment should remain labeled as judgment; an unsupported preference does not become evidence merely because it is stated confidently.
 
 ---
 
@@ -187,7 +187,7 @@ Decision posture must adapt when time becomes the dominant constraint.
 
 # Invariant Decision Questions
 
-Before analysis begins, every decision must answer three questions:
+For a consequential decision, three questions provide a fast starting point:
 
 1. **What decision must be made now?**
 2. **What posture does this decision require?**
@@ -219,25 +219,17 @@ The Decision Map ensures decision effort matches decision consequence.
 
 # Evidence Discipline
 
-Evidence must meet admissibility standards before influencing commitment.
+Use the best evidence reasonably available. Distinguish observed facts from reports, experience, judgment, and assumptions so confidence does not exceed the actual support. Evidence informs justification; it does not determine it alone.
 
-Evidence may be:
+Sometimes evidence is limited or absent. That does not automatically prevent a decision. The owner may decide that the consequences of waiting outweigh the unresolved uncertainty and proceed with that tradeoff explicit.
 
-- **Admitted**
-- **Downgraded**
-- **Excluded**
-
-The framework distinguishes between:
-
-- information
-- evidence
-- decision justification
+Formal source review can be useful when consequences warrant it, but admission categories are not required in the normal Clarity workflow.
 
 ---
 
 # Decision Structure (Decision Grammar)
 
-Every decision must define the following structural elements.
+When a decision needs the fuller operating model, define the following structural elements. They are not mandatory fields for the lightweight core.
 
 ### Owner
 
@@ -291,7 +283,7 @@ Examples:
 - **Action Trigger**: 20 production errors occur within 10 minutes after deployment.
 - **Response**: Roll back the deployment, notify the on-call engineer, and begin incident review.
 
-Triggers must be defined **before experimentation begins**.
+Define triggers before experimentation when a threshold or predefined response would materially improve safety or learning. A lightweight experiment may need only a clear review condition.
 
 ---
 
@@ -366,7 +358,7 @@ Common avoidance patterns include:
 
 Architecture avoidance produces fragile decision systems.
 
-The Clarity Framework requires architecture **before operational signals appear**.
+High-risk operational settings benefit from architecture **before operational signals appear**. Ordinary decisions can use the lightweight core without building a formal decision system.
 
 ---
 
@@ -415,7 +407,7 @@ This loop converts decisions into institutional learning.
 
 # Decision Hygiene Checks
 
-Every decision should pass five hygiene checks before commitment.
+Use these five hygiene checks when their value justifies the effort; they can be answered briefly.
 
 1. Ownership Check
 2. Decision Definition Check
@@ -503,7 +495,7 @@ Without scheduled review, slow failures remain undetected until reversal becomes
 
 # Decision Communication Protocol
 
-During decision discussions, participants communicate using structured statements:
+When discussion is drifting, participants can use four structured statements:
 
 Signal — What observation triggered concern?
 
@@ -513,7 +505,7 @@ Recommendation — What action should be taken?
 
 Risk — What risk exists if the recommendation is wrong?
 
-This protocol keeps discussions focused on evidence and action rather than opinion.
+This optional shorthand keeps discussions focused on evidence and action rather than opinion.
 
 ---
 

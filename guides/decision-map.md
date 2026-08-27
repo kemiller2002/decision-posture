@@ -4,9 +4,9 @@
 
 The Clarity Decision Map helps organizations determine the correct **decision posture** based on the characteristics of the decision being made.
 
-Decision posture determines:
+Decision posture informs:
 
-- how much evidence is required
+- how strong the available justification should be
 - how quickly a decision should be made
 - how much coordination is needed
 - how carefully risk must be managed
@@ -130,7 +130,7 @@ High impact and difficult to reverse.
 Characteristics:
 
 - deliberate evaluation
-- strong evidence requirements
+- stronger justification, using the best information reasonably available
 - cross-organizational coordination
 
 Goal:
@@ -161,7 +161,9 @@ Fast → Experimental → Guardrail → Strategic
 
 Fast decisions optimize for **speed**.
 
-Strategic decisions optimize for **risk management and correctness**.
+Strategic decisions optimize for **risk-aware commitment**.
+
+Higher consequence calls for greater care, not proof of the future. A major decision can still be reasonable with incomplete evidence when the uncertainty is explicit and the cost of waiting is greater.
 
 ---
 
@@ -285,4 +287,4 @@ Its purpose is to ensure organizations apply **the correct level of discipline t
 
 Clarity does not remove uncertainty.
 
-Clarity makes decisions **safe despite uncertainty**.
+Clarity makes uncertainty **visible, owned, and actionable**.
