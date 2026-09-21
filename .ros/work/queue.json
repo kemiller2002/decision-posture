@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "repository": "decision-posture",
+  "nextSeq": 1,
+  "items": [
+    {
+      "id": "ECHELON-UPGRADE-2026-09-21",
+      "title": "Install current Echelon engineering capabilities",
+      "description": null,
+      "tags": [
+        "tooling",
+        "visual",
+        "communication"
+      ],
+      "priority": "high",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-09-21T23:52:24Z",
+      "updatedAt": "2026-09-21T23:52:57Z",
+      "createdBy": "agent:chatgpt",
+      "source": "agent-discovery",
+      "sourceReference": "public-repository-upgrade-2026-09-21"
+    }
+  ]
+}
