@@ -1,0 +1,55 @@
+name: Static site validation
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Check local HTML links and assets
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require("fs");
+          const path = require("path");
+
+          const files = [];
+          const walk = dir => {
+            for (const entry of fs.readdirSync(dir, {withFileTypes:true})) {
+              if (entry.name === ".git") continue;
+              const full = path.join(dir, entry.name);
+              if (entry.isDirectory()) walk(full);
+              else if (entry.name.endsWith(".html")) files.push(full);
+            }
+          };
+          walk(".");
+
+          const missing = [];
+          const pattern = /(?:href|src)=["']([^"'#]+)["']/g;
+          for (const file of files) {
+            const html = fs.readFileSync(file, "utf8");
+            for (const match of html.matchAll(pattern)) {
+              const target = match[1].split(/[?#]/, 1)[0];
+              if (!target || /^(?:https?:|mailto:|tel:|data:|javascript:)/i.test(target)) continue;
+              const resolved = target.startsWith("/")
+                ? path.join(".", target.slice(1))
+                : path.resolve(path.dirname(file), target);
+              if (!fs.existsSync(resolved)) missing.push(`${file}: ${match[1]}`);
+            }
+          }
+
+          if (missing.length) {
+            console.error("Broken local references:\n" + missing.join("\n"));
+            process.exit(1);
+          }
+          console.log(`Validated ${files.length} HTML files with no broken local references.`);
+          NODE
