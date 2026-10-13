@@ -1,0 +1,51 @@
+name: UI conformance
+
+# visual-engineering/UI-LAYOUT-INTERACTION@1.0.0 browser evidence for the
+# GitHub Pages site (repository root, decisionposture.com). Test tooling lives
+# in tests/ui-conformance; the site itself has no build step.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ui-conformance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ui-conformance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: tests/ui-conformance
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tests/ui-conformance/package-lock.json
+      - name: Install test tooling
+        run: npm ci --no-audit --no-fund
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Run UI conformance suite
+        run: npm run ui:conformance
+      - name: Emit and validate conformance evidence
+        if: ${{ !cancelled() }}
+        run: npm run ui:evidence
+      - name: Upload evidence, report and traces
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-conformance-evidence
+          path: |
+            tests/ui-conformance/reports/
+            tests/ui-conformance/playwright-report/
+            tests/ui-conformance/test-results/
+          retention-days: 30

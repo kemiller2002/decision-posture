@@ -102,7 +102,10 @@
 
         const thead = "<thead><tr>" + headers.map((cell) => "<th>" + parseInline(cell) + "</th>").join("") + "</tr></thead>";
         const tbody = "<tbody>" + rows.map((row) => "<tr>" + row.map((cell) => "<td>" + parseInline(cell) + "</td>").join("") + "</tr>").join("") + "</tbody>";
-        chunks.push("<table>" + thead + tbody + "</table>");
+        // ULI-L05: a wide table scrolls inside a labelled, focusable region
+        // instead of widening the page.
+        chunks.push('<div class="table-wrap" role="region" tabindex="0" aria-label="' +
+          escapeHtml(headers.join(", ")).replace(/"/g, "&quot;") + ' table"><table>' + thead + tbody + "</table></div>");
         continue;
       }
 
@@ -148,6 +151,11 @@
       document.title = title + " — Clarity Framework";
     }
 
+    // ULI-A07/L08: say that the guide is loading, and on failure say so with
+    // a working route to the same content (the Markdown source).
+    article.setAttribute("aria-busy", "true");
+    article.innerHTML = '<p role="status">Loading the guide…</p>';
+
     try {
       const response = await fetch(source);
       if (!response.ok) {
@@ -157,7 +165,12 @@
       const markdown = await response.text();
       article.innerHTML = parseMarkdown(markdown);
     } catch (error) {
-      article.innerHTML = "<p>Unable to load the guide content.</p>";
+      const href = escapeHtml(source).replace(/"/g, "&quot;");
+      article.innerHTML =
+        '<p role="alert">The guide could not be loaded. ' +
+        '<a href="' + href + '">Open the guide source (Markdown)</a> or reload the page to try again.</p>';
+    } finally {
+      article.removeAttribute("aria-busy");
     }
   }
 
