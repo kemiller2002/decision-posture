@@ -258,6 +258,10 @@ h3{line-height:1.2;}
 }
 
 .flow-step{
+  /* ULI-L05: a step pill never outgrows its row; long words wrap inside it. */
+  max-width:100%;
+  min-width:0;
+  overflow-wrap:anywhere;
   padding:10px 14px;
   border:1px solid var(--line);
   background:rgba(255,255,255,0.05);

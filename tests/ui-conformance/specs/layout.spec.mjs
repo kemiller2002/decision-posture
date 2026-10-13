@@ -90,3 +90,20 @@ test("layout: reduced motion removes transitions and smooth scrolling", async ({
   await fillCompleteAssessment(page, { submit: true });
   await expect(page.getByRole("heading", { name: "Clarity Assessment Report" })).toBeInViewport();
 });
+
+// ULI-L05: step pills in the framework flow diagrams stay inside their row
+// at 320px with 200% text. Measured against the container, not the viewport,
+// so the check does not depend on how wide the runner's fonts happen to be.
+for (const path of ["framework.html", "how-it-fits.html"]) {
+  test(`layout: ${path} flow steps stay inside their diagram at 320px with 200% text`, async ({ page }) => {
+    await open(page, path, 320);
+    await scaleDefaultText(page, 2);
+    const escapes = await page.locator(".flow").evaluateAll(flows => flows.flatMap(flow => {
+      const box = flow.getBoundingClientRect();
+      return [...flow.querySelectorAll(".flow-step")]
+        .map(step => ({ text: step.textContent.trim(), right: step.getBoundingClientRect().right, limit: box.right }))
+        .filter(step => step.right > step.limit + 1);
+    }));
+    expect(escapes).toEqual([]);
+  });
+}
