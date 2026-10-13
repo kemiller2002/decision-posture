@@ -100,7 +100,6 @@
 
   let currentMarkdown = "";
   let currentHtmlReport = "";
-  let copyResetTimer = null;
 
   function readValue(formData, key) {
     const value = formData.get(key);
@@ -266,12 +265,6 @@
     copyStatus.textContent = message;
   }
 
-  function clearCopyStatusLater() {
-    if (copyResetTimer) window.clearTimeout(copyResetTimer);
-    copyResetTimer = window.setTimeout(function () {
-      setCopyStatus("");
-    }, 1600);
-  }
 
   function buildMarkdown(values) {
     const lines = [
@@ -439,28 +432,37 @@
     ].join("");
   }
 
+  // Legacy fallback. execCommand reports whether the copy happened; a false
+  // result is a failure, not a success (ULI-A07).
+  function copyWithSelection(text) {
+    const helper = document.createElement("textarea");
+    helper.value = text;
+    helper.setAttribute("readonly", "readonly");
+    helper.style.position = "absolute";
+    helper.style.left = "-9999px";
+    document.body.appendChild(helper);
+    helper.select();
+    const copied = document.execCommand("copy");
+    document.body.removeChild(helper);
+    if (!copied) throw new Error("copy command refused");
+  }
+
+  function writeClipboard(text) {
+    return navigator.clipboard && typeof navigator.clipboard.writeText === "function"
+      ? navigator.clipboard.writeText(text)
+      : Promise.resolve().then(function () { copyWithSelection(text); });
+  }
+
+  // The status stays until the next copy or report, so the outcome can be
+  // read at any pace; a failure names the manual recovery.
   async function copyMarkdown() {
     if (!currentMarkdown) return;
-
+    setCopyStatus("");
     try {
-      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-        await navigator.clipboard.writeText(currentMarkdown);
-      } else {
-        const helper = document.createElement("textarea");
-        helper.value = currentMarkdown;
-        helper.setAttribute("readonly", "readonly");
-        helper.style.position = "absolute";
-        helper.style.left = "-9999px";
-        document.body.appendChild(helper);
-        helper.select();
-        document.execCommand("copy");
-        document.body.removeChild(helper);
-      }
-
-      setCopyStatus("Copied");
-      clearCopyStatusLater();
+      await writeClipboard(currentMarkdown);
+      setCopyStatus("Markdown copied to the clipboard.");
     } catch (error) {
-      setCopyStatus("Copy failed");
+      setCopyStatus("Copy failed. Select the Markdown export below and copy it manually.");
     }
   }
 
@@ -546,6 +548,7 @@
 
     summary.hidden = false;
     setCopyStatus("");
-    summary.scrollIntoView({ behavior: "smooth", block: "start" });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    summary.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
   });
 })();

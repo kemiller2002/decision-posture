@@ -1,0 +1,15 @@
+{
+  "name": "decision-posture-ui-conformance",
+  "private": true,
+  "type": "module",
+  "description": "Test-only tooling for visual-engineering/UI-LAYOUT-INTERACTION@1.0.0 on the decisionposture.com static site. The site itself has no build and no runtime npm dependencies.",
+  "scripts": {
+    "serve": "node serve.mjs ../..",
+    "ui:conformance": "playwright test --config=playwright.config.mjs",
+    "ui:evidence": "node emit-evidence.mjs reports/results.json reports/ui-conformance-evidence.json"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "ajv": "8.17.1"
+  }
+}

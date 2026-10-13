@@ -4,8 +4,13 @@ function setStatus(form, msg, isError = false) {
   const el = form.querySelector(".form-status");
   if (!el) return;
   el.textContent = msg;
-  el.style.color = isError ? "crimson" : "inherit";
+  el.classList.toggle("is-error", isError);
 }
+
+// ULI-A07: a failed submission says that nothing was sent, keeps the entries,
+// and names the recovery, instead of only echoing a raw server message.
+const failureMessage = (err) =>
+  `Not sent: ${err.message || "something went wrong"}. Your entries are kept; try again.`;
 
 function setSubmitState(form, sending) {
   const button = form.querySelector('button[type="submit"]');
@@ -38,9 +43,7 @@ async function submitToWorker(data) {
   try {
     json = JSON.parse(text);
   } catch (err) {
-    throw new Error(
-      `Bad response from server (${resp.status}): ${text.slice(0, 200)}`,
-    );
+    throw new Error(`the server returned an unexpected response (${resp.status})`);
   }
 
   if (!resp.ok || !json.ok) {
@@ -74,7 +77,7 @@ document.querySelectorAll("form.contact-form").forEach((setupForm) => {
       // If you want a quiet debug in console:
       // console.log("Saved to repo:", result.path, result.commitSha);
     } catch (err) {
-      setStatus(form, err.message || "Something went wrong.", true);
+      setStatus(form, failureMessage(err), true);
     } finally {
       setSubmitState(form, false);
       disableForm(form, false);
